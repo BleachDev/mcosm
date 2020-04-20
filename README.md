@@ -6,7 +6,7 @@ A Minecraft OSM Generator fully compatible with the Build The Earth map projecti
 ## Usage
 
 There isn't an automatic api grabber yet, but you can still test the generator out from minecraft:
-* Go on a map (like google maps), go to the top left and bottom right coners of area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8376351,-9.3557338``` where the first is lat and the second is lon.
+* Go on a map (like google maps), go to the top left and bottom right coners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8376351,-9.3557338``` where the first is lat and the second is lon.
 
 * Then run the osmapi command like ```/osmapi [lat1] [lon1] [lat2] [lon2]```, it will copy a url on your clipboard, paste that in your browser
 
