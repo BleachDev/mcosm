@@ -24,4 +24,4 @@ If you want to contribute:
 * Once you are done making your edits, push the changes to your fork
 * Then make a pull request
 
-Or if you are too lazy to make to use git, you can message me your contributing on discord ```BLeach#0136``` or [join the discord server.](https://discord.gg/xPuZy3j)
+Or if you are too lazy to use git, you can message me your contribution on discord ```BLeach#0136``` or [join the discord server.](https://discord.gg/xPuZy3j)
