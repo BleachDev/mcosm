@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "bleach.mcosm.mixin.mixins",
+  "refmap": "mixins.mcosm.refmap.json",
+  "mixins": [
+  	"MixinPlayerChunkMap",
+  	"MixinWorldServer"
+   ]
+}
