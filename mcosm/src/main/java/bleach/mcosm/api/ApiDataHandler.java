@@ -40,7 +40,7 @@ public class ApiDataHandler {
 		this.data = json;
 		this.proj = proj;
 		
-		PriorityQueue<Tuple2<Integer /* priority */, JsonObject>> tempWays = new PriorityQueue<Tuple2<Integer /* order */, JsonObject>>(
+		PriorityQueue<Tuple2<Integer /* priority */, JsonObject>> tempWays = new PriorityQueue<Tuple2<Integer, JsonObject>>(
 				new Comparator<Tuple2<Integer, JsonObject>>() {
 					public int compare(Tuple2<Integer, JsonObject> o1, Tuple2<Integer, JsonObject> o2) {
 						return o1._1 > o2._1 ? -1 : o1._1 == o2._1 ? 0 : 1;
@@ -68,13 +68,13 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().get("building") != null) {
 							
-							tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+							tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
 							
 						} else if (jtags.getAsJsonObject().get("highway") != null) {
 							
-							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
-							else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway"))  tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
-							else tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
+							else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway"))  tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+							else tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
 							
 						}
 					}

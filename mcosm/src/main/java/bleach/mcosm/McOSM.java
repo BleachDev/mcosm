@@ -14,7 +14,7 @@ public class McOSM
 {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
-    public static final String VERSION = "0.2.3";
+    public static final String VERSION = "0.2.4";
     
     public static OSMInstance osmInst = new OSMInstance();
     

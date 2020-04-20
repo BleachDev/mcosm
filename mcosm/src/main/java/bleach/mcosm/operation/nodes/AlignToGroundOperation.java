@@ -18,7 +18,9 @@ public class AlignToGroundOperation extends Operation {
 	private static final List<Block> REPLACEABLE = Arrays.asList(
 			Blocks.YELLOW_FLOWER, Blocks.DOUBLE_PLANT, Blocks.DEADBUSH, Blocks.TALLGRASS, Blocks.RED_FLOWER,
 			Blocks.VINE, Blocks.LEAVES, Blocks.LEAVES2, Blocks.LOG, Blocks.LOG2, Blocks.RED_MUSHROOM,
-			Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK);
+			Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.CONCRETE);
+																						// ^ Used To Prevent Stacking Buildings
+																						// TODO: Permanent solution
 	
 	public AlignToGroundOperation(List<BlockPos> poses) {
 		this.thread = new OperationThread<List<BlockPos>>() {

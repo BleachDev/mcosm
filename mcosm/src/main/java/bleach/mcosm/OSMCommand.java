@@ -28,7 +28,7 @@ public class OSMCommand extends CommandBase {
 		
 		try {
 			String data = new String(Files.readAllBytes(Paths.get(args[0])));
-			ApiDataHandler apiHandler = new ApiDataHandler(data, ApiDataHandler.Projection.BTE_00);
+			ApiDataHandler apiHandler = new ApiDataHandler(data, ApiDataHandler.Projection.BTE_PLAYER);
 			apiHandler.addToInstance(McOSM.osmInst);
 			
 		} catch (IOException e) {
