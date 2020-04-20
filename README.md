@@ -19,7 +19,7 @@ There isn't an automatic api grabber yet, but you can still test the generator o
 If you want to contribute:
 * Fork the project
 * Download the source
-* Follow the instructions in forge README
+* Follow the instructions in the forge README
 * Add Git to your IDE
 * Once you are done making your edits, push the changes to your fork
 * Then make a pull request
