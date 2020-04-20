@@ -17,7 +17,7 @@ There isn't an automatic api grabber yet, but you can still test the generator o
 
 * Then save the json that is on the page you pasted somewhere on your computer
 
-* Then run the osm command like ```/osm [path]```, it will then generate the building ontop where they should be on the earth if you are using the Build The Earth map projection
+* Then run the osm command like ```/osm [path] [local:true/false]``` where path is the json file path and local is an optional parameter to specify if its build from x0 z0 (global) or around the player (local), it will then generate the building ontop where they should be on the earth if you are using the Build The Earth map projection
 
 ## Contributing
 
