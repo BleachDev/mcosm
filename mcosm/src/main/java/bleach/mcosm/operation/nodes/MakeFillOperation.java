@@ -56,21 +56,28 @@ public class MakeFillOperation extends Operation {
 					if (!outline.contains(b)) { flooded.add(b); }
 				}
 				
+				List<BlockPos> active = new ArrayList<>(flooded);
+				
 				setProgress(0.6);
+				int totalSize = ((maxX + 1) - minX) * ((maxZ + 1) - minZ);
 				boolean doneFlood = false;
 				while (!doneFlood) {
 					doneFlood = true;
-					for (BlockPos b: new ArrayList<>(flooded)) {
+					for (BlockPos b: new ArrayList<>(active)) {
 						for (int[] i: new int[][]{{0,0,1},{1,0,0},{0,0,-1},{-1,0,0}}) {
 							BlockPos newB = b.add(i[0], i[1], i[2]);
 							
 							if (newB.getX() < minX || newB.getZ() < minZ || newB.getX() > maxX || newB.getZ() > maxZ
-									|| outline.contains(newB) || flooded.contains(newB)) continue;
+									|| outline.contains(newB) || flooded.contains(newB) || active.contains(newB)) continue;
 							
 							flooded.add(newB);
+							active.remove(b);
+							active.add(newB);
 							doneFlood = false;
 						}
 					}
+					
+					setProgress(0.6 + ((double) flooded.size() / (double) totalSize) * 0.2);
 				}
 				
 				setProgress(0.8);
@@ -82,6 +89,8 @@ public class MakeFillOperation extends Operation {
 							fill.add(b);
 						}
 					}
+					
+					setProgress(0.8 + ((double) (x - minX) / (double) ((maxX + 1) - minX)) * 0.2);
 				}
 				
 				setOutput(fill);
