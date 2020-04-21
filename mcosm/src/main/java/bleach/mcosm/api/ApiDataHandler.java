@@ -1,5 +1,7 @@
 package bleach.mcosm.api;
 
+import java.awt.Color;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,6 +17,7 @@ import bleach.mcosm.struct.BuildingStruct;
 import bleach.mcosm.struct.HouseStruct;
 import bleach.mcosm.struct.RoadStruct;
 import bleach.mcosm.struct.TreeStruct;
+import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
 import net.minecraft.block.BlockConcretePowder;
 import net.minecraft.block.BlockDirt;
@@ -83,7 +86,9 @@ public class ApiDataHandler {
 			}
 		}
 		
-		tempWays.forEach(v -> ways.add(v._2));
+		while (!tempWays.isEmpty()) {
+			ways.add(tempWays.poll()._2);
+		}
 	}
 	
 	public void addToInstance(OSMInstance inst) {
@@ -128,6 +133,8 @@ public class ApiDataHandler {
 					
 					JsonElement jheight = jtags.get("height");
 					JsonElement jfloors = jtags.get("building:levels");
+					JsonElement jcolor = jtags.get("building:colour");
+					JsonElement jmaterial = jtags.get("building:material");
 					
 					if (jheight != null) {
 						height = (int) jheight.getAsDouble();
@@ -138,6 +145,29 @@ public class ApiDataHandler {
 						if (!heightSet) height = (int) Math.round(jfloors.getAsInt() * 3.5);
 						heightSet = true;
 						floors = jfloors.getAsInt();
+					}
+					
+					if (jcolor != null) {
+						String color = jcolor.getAsString().replace("#", "");
+
+						try {
+							blockType = BlockColors.getClosestBlock(Integer.parseInt(color, 16)).getDefaultState();
+						} catch (NumberFormatException nfe) {
+							try {
+								Field f = Color.class.getField(color.toLowerCase());
+
+								blockType = BlockColors.getClosestBlock(((Color) f.get(null)).getRGB()).getDefaultState();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+					
+					if (jmaterial != null) {
+						switch (jmaterial.getAsString()) {
+							case "brick":
+								blockType = Blocks.BRICK_BLOCK.getDefaultState();
+						}
 					}
 					
 					if (jbuilding.getAsString().equals("garage")) {
@@ -155,6 +185,10 @@ public class ApiDataHandler {
 					nodes = nodes.stream().map(b -> b.down()).collect(Collectors.toList());
 					
 					switch (jroad.getAsString()) {
+						case "primary":
+							inst.add(new RoadStruct(nodes,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5));
+							break;
 						case "seconday":
 							inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4));
@@ -164,22 +198,28 @@ public class ApiDataHandler {
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
 							break;
+						case "tertiary":
+							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 3));
+							break;
 						case "service":
 							inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 2));
 							break;
-						case "cycleway":
+						case "cycleway": case "pedestrian":
 							inst.add(new RoadStruct(nodes,
 									Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedHardenedClay.COLOR, EnumDyeColor.CYAN), 1));
 							break;
 						case "track":
 							inst.add(new RoadStruct(nodes, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT), 2));
 							break;
-						case "residential":
+						case "residential": case "unclassified":
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 2));
+							break;
+						case "footway": case "steps":
+							inst.add(new RoadStruct(nodes, Blocks.BRICK_BLOCK.getDefaultState(), 1));
 							break;
 						default:
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
 									Blocks.CONCRETE.getDefaultState(), 4));
 					}
 				}

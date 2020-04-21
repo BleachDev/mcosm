@@ -15,12 +15,10 @@ import net.minecraft.world.World;
 
 public class AlignToGroundOperation extends Operation {
 
-	private static final List<Block> REPLACEABLE = Arrays.asList(
-			Blocks.YELLOW_FLOWER, Blocks.DOUBLE_PLANT, Blocks.DEADBUSH, Blocks.TALLGRASS, Blocks.RED_FLOWER,
-			Blocks.VINE, Blocks.LEAVES, Blocks.LEAVES2, Blocks.LOG, Blocks.LOG2, Blocks.RED_MUSHROOM,
-			Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.CONCRETE);
-																						// ^ Used To Prevent Stacking Buildings
-																						// TODO: Permanent solution
+	public static final List<Block> SOLID = Arrays.asList(
+			Blocks.GRASS, Blocks.STONE, Blocks.DIRT, Blocks.COAL_ORE, Blocks.IRON_ORE, Blocks.GOLD_ORE, Blocks.LAPIS_ORE,
+			Blocks.REDSTONE_ORE, Blocks.DIAMOND_ORE, Blocks.EMERALD_ORE, Blocks.WATER, Blocks.FLOWING_WATER,
+			Blocks.LAVA, Blocks.FLOWING_LAVA, Blocks.BEDROCK);
 	
 	public AlignToGroundOperation(List<BlockPos> poses) {
 		this.thread = new OperationThread<List<BlockPos>>() {
@@ -33,11 +31,11 @@ public class AlignToGroundOperation extends Operation {
 					
 					// (slow) Way of getting the highest block on a coordinate with cubicchunks infinite height
 					int airStreak = 0;
-					for (int i = 0; i < 9200; i++) {
+					for (int i = 1; i < 9200; i++) {
 						curPos.setY(i);
 						Block bl = world.getBlockState(curPos).getBlock();
 						
-						if (bl == Blocks.AIR || REPLACEABLE.contains(bl)) airStreak++;
+						if (!SOLID.contains(bl)) airStreak++;
 						else airStreak = 0;
 						
 						if (airStreak == 256) {
