@@ -187,7 +187,8 @@ public class ApiDataHandler {
 					switch (jroad.getAsString()) {
 						case "primary":
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5));
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
+									Blocks.CONCRETE.getDefaultState(), 4));
 							break;
 						case "seconday":
 							inst.add(new RoadStruct(nodes,

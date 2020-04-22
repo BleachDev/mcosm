@@ -9,7 +9,7 @@ Or the old roads will overwrite the new ones, and potentially mess up buildings.
 ```
 
 There isn't an automatic api grabber yet, but you can still test the generator out from minecraft:
-* Go on a map (like google maps), go to the top left and bottom right coners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8376351,-9.3557338``` where the first is lat and the second is lon.
+* Go on a map (like google maps), go to the top left and bottom right coners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is lat and the second is lon.
 
 * Then run the osmapi command like ```/osmapi [lat1] [lon1] [lat2] [lon2]```, it will copy a url on your clipboard, paste that in your browser
 
