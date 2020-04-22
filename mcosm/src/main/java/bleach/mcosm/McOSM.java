@@ -50,7 +50,7 @@ public class McOSM
 		    	World sw = Minecraft.getMinecraft().getIntegratedServer().getWorld(Minecraft.getMinecraft().player.dimension);
 		    	ChunkProviderServer cps = (ChunkProviderServer) sw.getChunkProvider();
 		    	
-		    	int prevSize = cps.loadedChunks.size();
+		    	//int prevSize = cps.loadedChunks.size();
 		    	//int i = 0;
 		    	for (Entry<Long, Chunk> c: new HashMap<>(cps.loadedChunks).entrySet()) {
 		    		long lon = c.getKey();

@@ -1,7 +1,5 @@
 # McOSM
-A Minecraft OSM Generator fully compatible with the Build The Earth map projection
-
-(Not a fully done mod, still in dev stage)
+A Minecraft OSM Generator fully compatible with CubicChunks, Terra121 and the Build The Earth map projection
 
 ## Usage
 

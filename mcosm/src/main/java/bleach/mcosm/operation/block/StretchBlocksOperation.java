@@ -22,24 +22,23 @@ public class StretchBlocksOperation extends AbstractBlockOperation {
 		for (BlockPos b: poses) {
 			ChunkPos c = new ChunkPos(b);
 			if (!chunks.contains(c)) chunks.add(c);
-			height = Math.min(height, 255 - b.getY());
 		}
 		
-		int realHeight = height;
+		// FIXME: crashes on > 255 y on non-cubichunks worlds
 		
 		this.thread = new OperationThread<Void>() {
 			
 			public void run() {
-				if (poses.isEmpty() || realHeight == 0) return;
+				if (poses.isEmpty() || height == 0) return;
 				
 				World world = Minecraft.getMinecraft().getIntegratedServer().getWorld(Minecraft.getMinecraft().player.dimension);
 				
 				double i = 0;
 				for (BlockPos b: poses) {
 					IBlockState state = world.getBlockState(b);
-					for (int h = 1; h < realHeight; h++) {
+					for (int h = 1; h < height; h++) {
 						setBlock(b.up(h), world, state);
-						setProgress((i / (double) (poses.size() * (realHeight - 1) - 1)) / 2);
+						setProgress((i / (double) (poses.size() * (height - 1) - 1)) / 2);
 						i += 0.5;
 					}
 				}
@@ -47,7 +46,7 @@ public class StretchBlocksOperation extends AbstractBlockOperation {
 				World clWorld = Minecraft.getMinecraft().world;
 				while (reloaded.size() < chunks.size()) {
 					ChunkPos cp = chunks.get(reloaded.size());
-					int newReload = Math.min(3, realHeight - reloadH);
+					int newReload = Math.min(3, height - reloadH);
 					 
 					for (BlockPos b: poses) {
 						if (b.getX() >> 4 == cp.x && b.getZ() >> 4 == cp.z) {
@@ -59,7 +58,7 @@ public class StretchBlocksOperation extends AbstractBlockOperation {
 					}
 					
 					reloadH += newReload + 1;
-					if (reloadH == realHeight + 1) {
+					if (reloadH == height + 1) {
 						reloaded.add(cp);
 						reloadH = 1;
 					}
