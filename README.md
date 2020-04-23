@@ -2,6 +2,7 @@
 A Minecraft OSM Generator fully compatible with CubicChunks, Terra121 and the Build The Earth map projection
 
 ![](https://i.imgur.com/rreILw9.png)
+![](https://i.imgur.com/GvREQrZ.jpg)
 
 ## Usage
 
