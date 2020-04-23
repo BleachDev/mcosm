@@ -11,6 +11,7 @@ import net.minecraft.util.text.TextComponentString;
 public class OSMInstance {
 
 	private final List<Creatable> structures = new ArrayList<>();
+	private int tick = 0;
 	
 	public OSMInstance() {}
 	
@@ -24,8 +25,18 @@ public class OSMInstance {
     		structures.clear();
     		return;
     	}
-    	
+		
     	if (!structures.isEmpty()) {
+    		tick++;
+    		
+    		if (tick > 3600) {
+    			Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("\u00a76Catching Up.."));
+    			
+    			if (tick > 3900) tick = 0;
+    			
+    			return;
+    		}
+    		
     		Creatable c = structures.get(0);
     		if (c.progress != "") Minecraft.getMinecraft().ingameGUI.addChatMessage(
     				ChatType.GAME_INFO, new TextComponentString("\u00a75" + structures.size() + " Queue | \u00a76" + c.progress));
