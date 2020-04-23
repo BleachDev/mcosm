@@ -35,7 +35,8 @@ public class AddWindowOperation extends AbstractBlockOperation {
 				World world = Minecraft.getMinecraft().getIntegratedServer().getWorld(Minecraft.getMinecraft().player.dimension);
 				
 				int bound = 1;
-				int windowSize = Math.round((height - bound * 2) / floors);
+				double wSize = (double) (height - bound) / (double) floors;
+				int wSizeInt = (int) wSize;
 				
 				int i = 0;
 				int sinceLast = 3;
@@ -43,14 +44,17 @@ public class AddWindowOperation extends AbstractBlockOperation {
 					if (sinceLast >= 3 && i < outline.size() - 1 && !isEdge(b)) {
 						BlockPos next = outline.get(i + 1);
 						if (!isEdge(next)) {
-							for (int w = 0; w < floors; w++) {
-								for (int w1 = 0; w1 < windowSize - 1; w1++) {
-									BlockPos b1 = b.up(bound + windowSize * w + w1), b2 = next.up(bound + windowSize * w + w1);
+							double totalH = bound;
+							for (int fl = 0; fl < floors; fl++) {
+								for (int h = 0; h < wSizeInt - 1; h++) {
+									BlockPos b1 = b.up((int) totalH + h), b2 = next.up((int) totalH + h);
 									setBlock(b1, world, state);
 									setBlock(b2, world, state);
 									replaced.add(b1);
 									replaced.add(b2);
 								}
+								
+								totalH += wSize;
 							}
 						}
 						
@@ -92,7 +96,8 @@ public class AddWindowOperation extends AbstractBlockOperation {
 		
 		if (touching.size() <= 1) return true;
 		if (touching.size() == 2) {
-			if (Math.abs(touching.get(0).getX() - touching.get(1).getX()) + Math.abs(touching.get(0).getZ() - touching.get(1).getZ()) <= 2) return true;
+			if (Math.abs(touching.get(0).getX() - touching.get(1).getX()) <= 1
+					&& Math.abs(touching.get(0).getZ() - touching.get(1).getZ()) <= 1) return true;
 		}
 		if (touching.size() == 3) {
 			int xpos = touching.get(0).getX();
