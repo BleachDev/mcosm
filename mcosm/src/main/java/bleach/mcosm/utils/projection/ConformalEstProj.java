@@ -19,7 +19,7 @@ public class ConformalEstProj extends AiroceanProj {
 
         try {
             //is = new FileInputStream("../resources/assets/terra121/data/conformal.txt");
-            is = getClass().getClassLoader().getResourceAsStream("assets/bleach/conformal.txt");
+            is = getClass().getClassLoader().getResourceAsStream("assets/bleach/data/conformal.txt");
             Scanner sc = new Scanner(is);
 
             for (int u = 0; u < xs.length; u++) {

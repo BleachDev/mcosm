@@ -1,9 +1,12 @@
 package bleach.mcosm;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -27,18 +30,27 @@ public class McOSM
     
     public static OSMInstance osmInst = new OSMInstance();
     
+    public static Queue<GuiScreen> guiQueue = new LinkedList<>();
+    
     private long tickCount = 0;
     
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	MinecraftForge.EVENT_BUS.register(this);
     	
-    	ClientCommandHandler.instance.registerCommand(new OSMCommand());
+    	ClientCommandHandler.instance.registerCommand(new OSMFileCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
     }
     
     @SubscribeEvent
-    public void onTick(TickEvent.WorldTickEvent event) {
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+    	if (event.phase == Phase.END && !guiQueue.isEmpty()) {
+    		Minecraft.getMinecraft().displayGuiScreen(guiQueue.poll());
+    	}
+    }
+    
+    @SubscribeEvent
+    public void onWorldTick(TickEvent.WorldTickEvent event) {
     	if (event.phase == Phase.END) return;
     	
     	// Chunk Garbage Collector For CubicChunks

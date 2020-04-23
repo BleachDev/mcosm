@@ -4,32 +4,38 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import bleach.mcosm.api.ApiDataHandler;
+import bleach.mcosm.gui.GuiMapBase;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 
-public class OSMCommand extends CommandBase {
+public class OSMFileCommand extends CommandBase {
 
 	@Override
 	public String getName() {
-		return "osm";
+		return "osmfile";
 	}
-
+ 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "/osm <path to interpreter file> [local:true/false]";
+		return "/osmfile <path to interpreter file> [local/global]";
 	}
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		//McOSM.guiQueue.add(new GuiMapBase(1, 1, 2, 2));
 		if (args.length == 0 || args.length > 2) throw new WrongUsageException(getUsage(sender), new Object[0]);
 		
 		boolean local = false;
-		try {
-			local = Boolean.parseBoolean(args[1]);
-		} catch (Exception e) { }
+		if (args.length == 2) {
+			if (args[1].equalsIgnoreCase("local")) {
+				local = true;
+			} else if (!args[1].equalsIgnoreCase("global")) {
+				throw new CommandException("Invalid Arg 1: \"" + args[1] + "\", should be \"local\" or \"global\"!", new Object[0]);
+			}
+		}
 		
 		try {
 			String data = new String(Files.readAllBytes(Paths.get(args[0])));

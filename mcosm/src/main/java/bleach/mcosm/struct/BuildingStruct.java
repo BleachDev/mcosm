@@ -9,7 +9,9 @@ import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeFillOperation;
 import bleach.mcosm.operation.nodes.MakeOutlineOperation;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 
 public class BuildingStruct extends Creatable {
 
@@ -32,7 +34,10 @@ public class BuildingStruct extends Creatable {
 			case 1: return new MakeFillOperation(outline);
 			case 2: return new AlignToGroundOperation(fill);
 			case 3: return new AlignToGroundOperation(outline);
-			case 4: return new SetBlocksOperation(fill, state);
+			case 4:
+				if (!fill.isEmpty()) Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
+						new TextComponentString(fill.get(0) + " | " + fill.size()));
+				return new SetBlocksOperation(fill, state);
 			case 5: return new StretchBlocksOperation(fill, height);
 		}
 		

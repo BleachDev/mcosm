@@ -37,7 +37,10 @@ public class ApiDataHandler {
 	private List<JsonObject> ways = new ArrayList<>();
 	private List<JsonObject> nodes = new ArrayList<>();
 	
-	private double minLat = Integer.MAX_VALUE, minLon = Integer.MAX_VALUE, maxLat = Integer.MIN_VALUE, maxLon = Integer.MIN_VALUE;
+	public double minLat = Integer.MAX_VALUE;
+	public double minLon = Integer.MAX_VALUE;
+	public double maxLat = Integer.MIN_VALUE;
+	public double maxLon = Integer.MIN_VALUE;
 	
 	public ApiDataHandler(String json, Projection proj) {
 		this.data = json;
@@ -185,6 +188,11 @@ public class ApiDataHandler {
 					nodes = nodes.stream().map(b -> b.down()).collect(Collectors.toList());
 					
 					switch (jroad.getAsString()) {
+						case "motorway":
+							inst.add(new RoadStruct(nodes,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 6));
+							break;
 						case "primary":
 							inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
@@ -204,6 +212,9 @@ public class ApiDataHandler {
 							break;
 						case "service":
 							inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 2));
+							break;
+						case "alley":
+							inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 1));
 							break;
 						case "cycleway": case "pedestrian":
 							inst.add(new RoadStruct(nodes,
