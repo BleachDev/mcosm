@@ -1,5 +1,6 @@
 package bleach.mcosm.struct;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -9,11 +10,19 @@ import bleach.mcosm.operation.Operation;
 import bleach.mcosm.operation.block.SetBlocksOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeStripeLineOperation;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
 public class RoadStruct extends Creatable {
 
+	private static final List<Block> REPLACEABLE = Arrays.asList(
+			Blocks.SNOW, Blocks.YELLOW_FLOWER, Blocks.RED_FLOWER, Blocks.DEADBUSH, Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM,
+			Blocks.BROWN_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.VINE, Blocks.WATERLILY, Blocks.LEAVES,
+			Blocks.LEAVES2, Blocks.DOUBLE_PLANT, Blocks.LOG, Blocks.LOG2, Blocks.AIR);
+	
 	public List<BlockPos> nodes;
 	public LinkedHashMap<BlockPos, IBlockState> fill;
 	
@@ -62,7 +71,19 @@ public class RoadStruct extends Creatable {
 				int i = 0;
 				for (Entry<BlockPos, IBlockState> e: new LinkedHashMap<>(fill).entrySet()) {
 					fill.remove(e.getKey());
-					fill.put(fillList.get(i).down(), e.getValue());
+					
+					if (!REPLACEABLE.contains(Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock())
+							&& REPLACEABLE.contains(Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock())) {
+						fill.put(fillList.get(i), e.getValue());
+						System.out.println("pp: " + Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() + " | " +
+								Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock());
+					} else {
+						fill.put(fillList.get(i).down(), e.getValue());
+						if (Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() != Blocks.AIR) {
+							System.out.println("not pp: " + Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() + " | " +
+									Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock());
+						}
+					}
 					i++;
 				}
 				

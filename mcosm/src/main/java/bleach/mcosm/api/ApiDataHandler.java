@@ -32,10 +32,10 @@ import scala.Tuple2;
 public class ApiDataHandler {
 
 	private String data;
-	private Projection proj;
+	public Projection proj;
 	
-	private List<JsonObject> ways = new ArrayList<>();
-	private List<JsonObject> nodes = new ArrayList<>();
+	public List<JsonObject> ways = new ArrayList<>();
+	public List<JsonObject> nodes = new ArrayList<>();
 	
 	public double minLat = Integer.MAX_VALUE;
 	public double minLon = Integer.MAX_VALUE;
@@ -74,13 +74,20 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().get("building") != null) {
 							
-							tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
+							tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
 							
 						} else if (jtags.getAsJsonObject().get("highway") != null) {
 							
-							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
-							else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway"))  tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
-							else tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
+								tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
+							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
+								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
+							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("footway")
+									|| jtags.getAsJsonObject().get("highway").getAsString().equals("steps")) {
+								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+							} else {
+								tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+							}
 							
 						}
 					}
@@ -192,6 +199,11 @@ public class ApiDataHandler {
 							inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 6));
+							break;
+						case "motorway_link":
+							inst.add(new RoadStruct(nodes,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
 							break;
 						case "primary":
 							inst.add(new RoadStruct(nodes,

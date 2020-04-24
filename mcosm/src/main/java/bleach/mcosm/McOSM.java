@@ -19,7 +19,7 @@ public class McOSM
 {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
-    public static final String VERSION = "0.2.5";
+    public static final String VERSION = "0.3.0-pre1";
     
     public static OSMInstance osmInst = new OSMInstance();
     
@@ -43,7 +43,6 @@ public class McOSM
     @SubscribeEvent
     public void onWorldTick(TickEvent.WorldTickEvent event) {
     	if (event.phase == Phase.END) return;
-    	
     	osmInst.tick();
     }
 }
