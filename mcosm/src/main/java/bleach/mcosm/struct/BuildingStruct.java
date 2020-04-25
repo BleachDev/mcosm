@@ -1,6 +1,7 @@
 package bleach.mcosm.struct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import bleach.mcosm.operation.Operation;
 import bleach.mcosm.operation.block.SetBlocksOperation;
@@ -9,9 +10,7 @@ import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeFillOperation;
 import bleach.mcosm.operation.nodes.MakeOutlineOperation;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 
 public class BuildingStruct extends Creatable {
 
@@ -33,19 +32,15 @@ public class BuildingStruct extends Creatable {
 			case 0: return new MakeOutlineOperation(nodes, false);
 			case 1: return new MakeFillOperation(outline);
 			case 2: return new AlignToGroundOperation(fill);
-			case 3: return new AlignToGroundOperation(outline);
-			case 4:
-				if (!fill.isEmpty()) Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-						new TextComponentString(fill.get(0) + " | " + fill.size()));
-				return new SetBlocksOperation(fill, state);
-			case 5: return new StretchBlocksOperation(fill, height);
+			case 3: return new SetBlocksOperation(fill, state);
+			case 4: return new StretchBlocksOperation(fill, height);
 		}
 		
 		return null;
 	}
 
 	public int getOpCount() {
-		return 6;
+		return 5;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -59,9 +54,7 @@ public class BuildingStruct extends Creatable {
 				break;
 			case 2:
 				fill = (List<BlockPos>) returnVal;
-				break;
-			case 3:
-				outline = (List<BlockPos>) returnVal;
+				outline = fill.stream().filter(b -> outline.contains(b)).collect(Collectors.toList());
 				break;
 		}
 	}

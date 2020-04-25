@@ -9,7 +9,6 @@ public abstract class AbstractBlockOperation extends Operation {
 	
 	protected void setBlock(BlockPos pos, World world, IBlockState state) {
 		world.getChunk(pos.getX() >> 4, pos.getZ() >> 4).setBlockState(pos, state);
-		world.getChunk(pos.getX() >> 4, pos.getZ() >> 4).onTick(false);
 	}
 	
 	protected void validateBlock(BlockPos pos, World world, World clWorld) {

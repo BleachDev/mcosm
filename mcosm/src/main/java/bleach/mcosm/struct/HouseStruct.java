@@ -24,14 +24,14 @@ public class HouseStruct extends BuildingStruct {
 	
 	public Operation getOperation(int op) {
 		switch (op) {
-			case 6: return new AddWindowOperation(outline, windowState, height, floors);
-			case 7: return new SetBlocksOperation(fill.stream().map(b -> b.up(height - 1)).collect(Collectors.toList()), roofState);
+			case 5: return new AddWindowOperation(outline, windowState, height, floors);
+			case 6: return new SetBlocksOperation(fill.stream().map(b -> b.up(height - 1)).collect(Collectors.toList()), roofState);
 		}
 		
 		return super.getOperation(op);
 	}
 
 	public int getOpCount() {
-		return 8;
+		return 7;
 	}
 }
