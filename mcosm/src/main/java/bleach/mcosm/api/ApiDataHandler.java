@@ -200,11 +200,6 @@ public class ApiDataHandler {
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 6));
 							break;
-						case "motorway_link":
-							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
-							break;
 						case "primary":
 							inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
@@ -216,10 +211,10 @@ public class ApiDataHandler {
 							break;
 						case "trunk":
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
 							break;
-						case "tertiary":
+						case "tertiary": case "motorway_link":
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 3));
 							break;
 						case "service":
@@ -235,7 +230,7 @@ public class ApiDataHandler {
 						case "track":
 							inst.add(new RoadStruct(nodes, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT), 2));
 							break;
-						case "residential": case "unclassified":
+						case "residential": case "unclassified": case "trunk_link": case "primary_link": case "secondary_link": case "tertiary_link":
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 2));
 							break;
 						case "footway": case "steps":
