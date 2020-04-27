@@ -15,8 +15,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 
 @Mod(modid = McOSM.MODID, name = McOSM.NAME, version = McOSM.VERSION)
-public class McOSM
-{
+public class McOSM {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
     public static final String VERSION = "0.3.0-pre1";
