@@ -13,7 +13,7 @@ Features:
     * Making Each House The Right Height Based On Its OSM Data Height.
     * Adding Windows On Buildings Based On How Many Floors They Have.
     * Set Building Material Based On OSM Material Data.
-    * ~~Set Building Material Based On OSM Building Color Data~~ (```TODO```)
+    * ~~Set Building Material Based On OSM Building Color Data~~ (```DISABLED```)
 * Making Roads.
     * Creating Different Road Types Based On OSM Data.
     * Including Walkways, Stairs And ~~Corridors Inside Houses~~. (```TODO```)
