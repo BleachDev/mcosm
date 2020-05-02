@@ -12,13 +12,24 @@ Features:
 * Making Building Shells.
     * Making Each House The Right Height Based On Its OSM Data Height.
     * Adding Windows On Buildings Based On How Many Floors They Have.
+    * Set Building Material Based On OSM Material Data.
+    * ~~Set Building Material Based On OSM Building Color Data~~ (```TODO```)
 * Making Roads.
     * Creating Different Road Types Based On OSM Data.
     * Including Walkways, Stairs And ~~Corridors Inside Houses~~. (```TODO```)
 * Making Trees Based On ASM Data
-* Gui To Auto Download API Data And Build In One Command. (```TODO```)
+* Gui To Auto Download API Data And Build In One Command.
 * Load Data From A File Or From The API.
 * Building In Cubic Or Non-Cubic Chunk Worlds.
+
+## Commands
+
+There are several commands to load map data into minecraft, here are all of them:
+
+* ```/osm [lat1] [lon1] [lat2] [lon2]``` to open the download and build gui
+* ```/osmfile [path]``` to open data from a file and open the build gui
+* ```/osmapi [lat1] [lon1] [lat2] [lon2]``` to copy a link of the api url to your clipboard to manually open it
+* ```/osm stop``` to stop all current tasks
 
 ## Usage
 
