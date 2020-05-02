@@ -59,10 +59,13 @@ public class GuiMapBase extends GuiScreen {
 	        }
         }
         
+        drawString(fontRenderer, "Scuffed Map™", mapX + 2, mapY + mapHei - 9, 0xc07070);
+        
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 	
 	private void drawMap(int x, int y, int w, int h) {
+		drawGradientRect(x - 1, y - 1, x + w + 1, y + h + 1, 0xff7070c0, 0xff70c070);
 		mapTexture.updateDynamicTexture();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(mapResource);
 		drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, w, h);

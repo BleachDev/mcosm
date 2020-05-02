@@ -28,6 +28,7 @@ public class McOSM {
     public void init(FMLInitializationEvent event) {
     	MinecraftForge.EVENT_BUS.register(this);
     	
+    	ClientCommandHandler.instance.registerCommand(new OSMCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMFileCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
     }

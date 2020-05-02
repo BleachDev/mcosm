@@ -23,18 +23,22 @@ Features:
 ## Usage
 
 ```
-WHEN USING THE MOD IN A TERRA121 WORLD, TURN OFF ROADS!
-Or the old roads will overwrite the new ones, and potentially mess up buildings.
+WHEN USING THE MOD IN A TERRA121 WORLD, TURN THE MAP DIRECTION TO UPRIGHT AND BTE PROJECTION!!
+Also turn off roads and building outlines for the best result!
 ```
 
-There isn't an automatic api grabber yet, but you can still test the generator out from minecraft:
-* Go on a map (like google maps), go to the top left and bottom right coners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is lat and the second is lon.
 
-* Then run the osmapi command like ```/osmapi [lat1] [lon1] [lat2] [lon2]```, it will copy a url on your clipboard, paste that in your browser
+* Go on a map (like google maps), go to the top left and bottom right corners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is lat and the second is lon.
 
-* Then save the json that is on the page you pasted somewhere on your computer
+* Then run the osm command like ```/osm [lat1] [lon1] [lat2] [lon2]```, it will open the builder gui
 
-* Then run the osm command like ```/osm [path] [local:true/false]``` where path is the json file path and local is an optional parameter to specify if its build from x0 z0 (global) or around the player (local), it will then generate the building ontop where they should be on the earth if you are using the Build The Earth map projection
+* Select the feautres you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
+
+* Change the Lat/Lon coord if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
+
+* Then click the ```Download``` Button and wait for it to download, If it wasn't successful it should say an error in the output box
+
+* If it successfully downloaded, you can click on the ```Start``` button to start building *(you don't have to be in the chunks its building in for it to build)*
 
 ## Contributing
 

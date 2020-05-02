@@ -34,16 +34,15 @@ public class GuiOSMFile extends GuiMapBase {
 		addButton(new GuiButton(1, mapX, mapY + mapHei + 5, 75, 20, "Cancel"));
 		
 		addButton(new GuiButton(2, mapX - 65, mapY, 60, 20, "\u00a7aBuildings"));
-		addButton(new GuiButton(3, mapX - 65, mapY + 25, 60, 20, "\u00a7aRoads"));
-		addButton(new GuiButton(4, mapX - 65, mapY + 50, 60, 20, "\u00a7aTrees"));
+		addButton(new GuiButton(3, mapX - 65, mapY + 22, 60, 20, "\u00a7aRoads"));
+		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "\u00a7aTrees"));
 		
-		addButton(new GuiButton(5, mapX - 65, mapY + 82, 60, 20, "Global"));
+		addButton(new GuiButton(5, mapX - 65, mapY + 72, 60, 20, "Global"));
     }
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		drawString(Minecraft.getMinecraft().fontRenderer, "Structures:", mapX + mapLen + 5, mapY + 10, 0x909090);
-		drawString(Minecraft.getMinecraft().fontRenderer, "" + (ways.size() + nodes.size()), mapX + mapLen + 5, mapY + 20, 0x909090);
+		drawString(fontRenderer, "Structures: " + (ways.size() + nodes.size()), mapX + 2, mapY - 10, 0x90a0a0);
 	}
 	
 	protected void actionPerformed(GuiButton button) throws IOException {
