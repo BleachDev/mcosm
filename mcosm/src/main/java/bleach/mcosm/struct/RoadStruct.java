@@ -21,7 +21,7 @@ public class RoadStruct extends Creatable {
 	private static final List<Block> REPLACEABLE = Arrays.asList(
 			Blocks.SNOW, Blocks.YELLOW_FLOWER, Blocks.RED_FLOWER, Blocks.DEADBUSH, Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM,
 			Blocks.BROWN_MUSHROOM_BLOCK, Blocks.BROWN_MUSHROOM_BLOCK, Blocks.VINE, Blocks.WATERLILY, Blocks.LEAVES,
-			Blocks.LEAVES2, Blocks.DOUBLE_PLANT, Blocks.LOG, Blocks.LOG2, Blocks.AIR);
+			Blocks.LEAVES2, Blocks.DOUBLE_PLANT, Blocks.LOG, Blocks.LOG2, Blocks.AIR, Blocks.REEDS, Blocks.TALLGRASS);
 	
 	public List<BlockPos> nodes;
 	public LinkedHashMap<BlockPos, IBlockState> fill;
