@@ -59,7 +59,7 @@ public class GuiMapBase extends GuiScreen {
 	        }
         }
         
-        drawString(fontRenderer, "Scuffed Map™", mapX + 2, mapY + mapHei - 9, 0xc07070);
+        drawString(fontRenderer, "Scuffed Map\u2122", mapX + 2, mapY + mapHei - 9, 0xc07070);
         
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

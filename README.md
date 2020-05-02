@@ -34,7 +34,7 @@ Also turn off roads and building outlines for the best result!
 
 * Select the feautres you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
 
-* Change the Lat/Lon coord if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
+* Change the Lat/Lon coords if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
 
 * Then click the ```Download``` Button and wait for it to download, If it wasn't successful it should say an error in the output box
 
