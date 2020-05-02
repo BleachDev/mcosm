@@ -97,6 +97,7 @@ public class GuiOSM extends GuiMapBase {
 			case 0:
 				if (apiData == null) break;
 				
+				updateLists();
 				apiData.ways = new ArrayList<>(ways);
 				apiData.nodes = new ArrayList<>(nodes);
 				if (buttonList.get(5).displayString.equals("Local")) apiData.proj = Projection.BTE_PLAYER;
@@ -147,6 +148,7 @@ public class GuiOSM extends GuiMapBase {
 					this.ways = new ArrayList<>(apiData.ways);
 					this.nodes = new ArrayList<>(apiData.nodes);
 					buttonList.get(0).enabled = true;
+					buttonList.get(6).enabled = false;
 					outputField.setText("\u00a7aSuccess! (" + String.format("%,d", response.length()) + " Bytes)");
 				} catch (NumberFormatException e) {
 					outputField.setText("\u00a7cInvalid Lat/Lon!");

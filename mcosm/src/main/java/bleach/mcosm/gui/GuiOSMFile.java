@@ -48,6 +48,7 @@ public class GuiOSMFile extends GuiMapBase {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		switch (button.id) {
 			case 0:
+				updateLists();
 				apiData.ways = new ArrayList<>(ways);
 				apiData.nodes = new ArrayList<>(nodes);
 				if (buttonList.get(5).displayString.equals("Local")) apiData.proj = Projection.BTE_PLAYER;

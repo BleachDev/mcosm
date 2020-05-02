@@ -55,5 +55,6 @@ public class OSMInstance {
 	
 	public void stop() {
 		for (Creatable c: structures) c.stop();
+		structures.clear();
 	}
 }
