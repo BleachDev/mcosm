@@ -1,8 +1,24 @@
 # McOSM
-A Minecraft OSM Generator fully compatible with CubicChunks, Terra121 and the Build The Earth map projection
+A Minecraft OSM Shell Generator fully compatible with CubicChunks, Terra121 and the Build The Earth map projection
 
 ![](https://i.imgur.com/rreILw9.png)
 ![](https://i.imgur.com/GvREQrZ.jpg)
+
+## Features
+
+This mod works in CubicChunks or in normal world, and in the Terra121 earth world, And can be used to build in earth scale ontop of the Terra121 building outlines or build around the player. To use it use the ```/osm``` command.
+
+Features:
+* Making Building Shells.
+    * Making Each House The Right Height Based On Its OSM Data Height.
+    * Adding Windows On Buildings Based On How Many Floors They Have.
+* Making Roads.
+    * Creating Different Road Types Based On OSM Data.
+    * Including Walkways, Stairs And ~~Corridors Inside Houses~~. (```TODO```)
+* Making Trees Based On ASM Data
+* Gui To Auto Download API Data And Build In One Command. (```TODO```)
+* Load Data From A File Or From The API.
+* Building In Cubic Or Non-Cubic Chunk Worlds.
 
 ## Usage
 
