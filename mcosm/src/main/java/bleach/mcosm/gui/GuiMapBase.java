@@ -59,7 +59,8 @@ public class GuiMapBase extends GuiScreen {
 	        }
         }
         
-        drawString(fontRenderer, "Scuffed Map\u2122", mapX + 2, mapY + mapHei - 9, 0xc07070);
+        int areaSize = (int) ((Math.abs(lat1 - lat) + Math.abs(lon1 - lon)) * 10000);
+		drawString(fontRenderer, "Selected: " + areaSize + "m\u00b2", mapX + 2, mapY + mapHei - 9, 0xc0c0c0);
         
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

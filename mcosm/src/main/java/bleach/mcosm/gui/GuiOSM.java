@@ -1,16 +1,14 @@
 package bleach.mcosm.gui;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -20,7 +18,6 @@ import bleach.mcosm.McOSM;
 import bleach.mcosm.OSMApiCommand;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.api.ApiDataHandler.Projection;
-import io.netty.handler.timeout.ReadTimeoutException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -36,7 +33,7 @@ public class GuiOSM extends GuiMapBase {
 	private GuiTextField lat1Field;
 	private GuiTextField lon1Field;
 	
-	private GuiTextField outputField;
+	private String outputText = "";
 	
 	public GuiOSM(double lat, double lon, double lat1, double lon1) {
 		super(lat, lon, lat1, lon1);
@@ -61,15 +58,12 @@ public class GuiOSM extends GuiMapBase {
 		lat1Field = new GuiTextField(258, fontRenderer, mapX + mapLen + 4, mapY + 80, 80, 20);
 		lon1Field = new GuiTextField(259, fontRenderer, mapX + mapLen + 4, mapY + 115, 80, 20);
 		
-		outputField = new GuiTextField(260, fontRenderer, mapX + mapLen + 4, mapY + 155, 80, 20);
-		
 		latField.setText(lat + "");
 		lonField.setText(lon + ""); // who needs toString
 		lat1Field.setText(lat1 + "");
 		lon1Field.setText(lon1 + "");
 		
 		buttonList.get(0).enabled = false;
-		//outputField.setEnabled(false);
     }
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -81,6 +75,12 @@ public class GuiOSM extends GuiMapBase {
 		drawString(fontRenderer, "Lon 2:", mapX + mapLen + 4, mapY + 105, 0x909090);
 		drawString(fontRenderer, "Output:", mapX + mapLen + 4, mapY + 145, 0xc0c0c0);
 		
+		int h = mapY + 155;
+		for (String s: outputText.split("\n")) {
+			drawString(fontRenderer, s, mapX + mapLen + 4, h, 0xc0c0c0);
+			h += 10;
+		}
+		
 		if (apiData != null) {
 			drawString(fontRenderer, "Structures: " + (ways.size() + nodes.size()), mapX + 2, mapY - 10, 0x90a0a0);
 		}
@@ -89,7 +89,6 @@ public class GuiOSM extends GuiMapBase {
 		lonField.drawTextBox();
 		lat1Field.drawTextBox();
 		lon1Field.drawTextBox();
-		outputField.drawTextBox();
 	}
 	
 	protected void actionPerformed(GuiButton button) throws IOException {
@@ -116,7 +115,6 @@ public class GuiOSM extends GuiMapBase {
 				button.displayString = button.displayString.equals("Global") ? "Local" : "Global";
 				break;
 			case 6:
-				int status = -1;
 				try {
 					double minLat = Double.parseDouble(latField.getText());
 					double minLon = Double.parseDouble(lonField.getText());
@@ -127,20 +125,13 @@ public class GuiOSM extends GuiMapBase {
 								+ URLEncoder.encode(OSMApiCommand.getApiLink(minLat, minLon, maxLat, maxLon).substring(45), "utf-8");
 					URL url = new URL(link);
 					System.out.println(url);
-					HttpURLConnection con = (HttpURLConnection) url.openConnection();
-					con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/75.0.1");
-					con.connect();
-					status = con.getResponseCode();
-					if (status < 200 || status > 300) {
-						throw new IOException();
-					}
 					
-					BufferedReader outReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-					String response = "";
-					String line;
-					while ((line = outReader.readLine()) != null) {
-						response += line;
-					}
+					URLConnection con = url.openConnection();
+					con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/75.0.1");
+					con.setConnectTimeout(15);
+					con.setReadTimeout(15);
+					
+					String response = IOUtils.toString(con.getInputStream());
 					
 					new JsonParser().parse(response); // Validate that is is real json
 					
@@ -149,21 +140,15 @@ public class GuiOSM extends GuiMapBase {
 					this.nodes = new ArrayList<>(apiData.nodes);
 					buttonList.get(0).enabled = true;
 					buttonList.get(6).enabled = false;
-					outputField.setText("\u00a7aSuccess! (" + String.format("%,d", response.length()) + " Bytes)");
+					outputText = "\u00a7aSuccess!\n\u00a7a(" + String.format("%,d", response.length()) + " Bytes)";
 				} catch (NumberFormatException e) {
-					outputField.setText("\u00a7cInvalid Lat/Lon!");
-					e.printStackTrace();
-				} catch (SocketTimeoutException | ReadTimeoutException e) {
-					outputField.setText("\u00a7cInvalid Json (rate limit)");
+					outputText = "\u00a7cInvalid Lat/Lon!";
 					e.printStackTrace();
 				} catch (IOException e) {
-					outputField.setText("\u00a7cIO Exception! (Code " + status + ")");
-					e.printStackTrace();
-				} catch (NoSuchElementException e) {
-					outputField.setText("\u00a7cEmpty Page???");
+					outputText = "\u00a7cIO Exception!";
 					e.printStackTrace();
 				} catch (JsonParseException e) {
-					outputField.setText("\u00a7cInvalid Json (rate limit)");
+					outputText = "\u00a7cInvalid Json\n\u00a7c(rate limit)";
 					e.printStackTrace();
 				}
 				
@@ -173,8 +158,6 @@ public class GuiOSM extends GuiMapBase {
 	
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		super.keyTyped(typedChar, keyCode);
-		
-		outputField.textboxKeyTyped(typedChar, keyCode);
 		
 		if (Character.isLetter(typedChar)) return;
 		
@@ -196,7 +179,6 @@ public class GuiOSM extends GuiMapBase {
 		lonField.mouseClicked(mouseX, mouseY, mouseButton);
 		lat1Field.mouseClicked(mouseX, mouseY, mouseButton);
 		lon1Field.mouseClicked(mouseX, mouseY, mouseButton);
-		outputField.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 	
 	protected void updateLists() {

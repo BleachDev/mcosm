@@ -75,13 +75,9 @@ public class RoadStruct extends Creatable {
 					if (!REPLACEABLE.contains(Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock())
 							&& REPLACEABLE.contains(Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock())) {
 						fill.put(fillList.get(i), e.getValue());
-						System.out.println("pp: " + Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() + " | " +
-								Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock());
 					} else {
 						fill.put(fillList.get(i).down(), e.getValue());
 						if (Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() != Blocks.AIR) {
-							System.out.println("not pp: " + Minecraft.getMinecraft().world.getBlockState(fillList.get(i)).getBlock() + " | " +
-									Minecraft.getMinecraft().world.getBlockState(fillList.get(i).up()).getBlock());
 						}
 					}
 					i++;

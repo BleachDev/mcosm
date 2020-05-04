@@ -30,6 +30,7 @@ public class OSMCommand extends CommandBase {
 				e.printStackTrace();
 				throw new CommandException("Invalid Coordinate [Arg ?]", new Object[0]);
 			}
+			
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("stop")) {
 			McOSM.osmInst.stop();
 			sender.sendMessage(new TextComponentString("Stopped all running OSM instances!"));
