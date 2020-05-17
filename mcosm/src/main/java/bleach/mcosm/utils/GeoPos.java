@@ -22,17 +22,22 @@ public class GeoPos {
 	}
 	
 	public static BlockPos from00BTE(double lat, double lon, int y) {
-		double[] latLon = bteProj.fromGeo(lon, lat);
+		double[] latLon = bteProj.fromGeo(lon, lat); // LAT, LON!
 		return new BlockPos(latLon[0], y, -latLon[1]);
 	}
 	
 	public static BlockPos fromPlayerBTE(double lat, double lon, double lat0, double lon0) {
-		double[] latLon = bteProj.fromGeo(lon, lat); // LON, LAT!!!!
+		double[] latLon = bteProj.fromGeo(lon, lat); // LAT, LON!
 		double[] latLon0 = bteProj.fromGeo(lon0, lat0);
 		return new BlockPos(
 				Minecraft.getMinecraft().player.posX + Math.round(latLon[0] - latLon0[0]), // Lon / X+ = East
 				Minecraft.getMinecraft().player.posY,
 				Minecraft.getMinecraft().player.posZ - Math.round(latLon[1] - latLon0[1])); // Lat / Z- = North
+	}
+	
+	public static double[] toLatLonBTE(BlockPos pos) {
+		double[] latLon = bteProj.toGeo(pos.getX(), -pos.getZ()); // LAT, LON!
+		return new double[] {latLon[1], latLon[0]};
 	}
 	
 	private static int latLonToBlockNaive(double c, double c0) {

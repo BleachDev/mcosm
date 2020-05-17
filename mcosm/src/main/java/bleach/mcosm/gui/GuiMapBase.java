@@ -59,7 +59,7 @@ public class GuiMapBase extends GuiScreen {
 	        }
         }
         
-        int areaSize = (int) ((Math.abs(lat1 - lat) + Math.abs(lon1 - lon)) * 10000);
+        long areaSize = (long) ((Math.abs(lat1 - lat) + Math.abs(lon1 - lon)) * 1000000l);
 		drawString(fontRenderer, "Selected: " + areaSize + "m\u00b2", mapX + 2, mapY + mapHei - 9, 0xc0c0c0);
         
         super.drawScreen(mouseX, mouseY, partialTicks);

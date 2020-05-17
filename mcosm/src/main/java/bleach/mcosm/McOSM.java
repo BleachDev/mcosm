@@ -31,6 +31,7 @@ public class McOSM {
     	ClientCommandHandler.instance.registerCommand(new OSMCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMFileCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
+    	ClientCommandHandler.instance.registerCommand(new OSMShellCommand());
     }
     
     @SubscribeEvent

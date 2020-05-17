@@ -28,11 +28,14 @@ public class ModifiedAiroceanProj extends ConformalEstProj {
             x -= ARC;
         }
 
-        c[0] = y * metersPerUnit(); c[1] = -x * metersPerUnit();
+        c[0] = y * metersPerUnit(); c[1] = -x * metersPerUnit(); // MODIFIED FROM ORIGINAL CODE!!! Auto scaled the coords given
         return c;
     }
 
     public double[] toGeo(double x, double y) {
+    	x /= metersPerUnit(); y /= metersPerUnit();  // MODIFIED FROM ORIGINAL CODE!!! Auto scaled the coords given
+    	//System.out.println(x + " | " + y + " | " + metersPerUnit());
+    	
         boolean easia;
         if(y<0)easia = x>0;
         else if(y>ARC/2)easia = x>-ROOT3*ARC/2;

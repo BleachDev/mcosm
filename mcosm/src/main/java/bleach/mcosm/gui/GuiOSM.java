@@ -128,12 +128,12 @@ public class GuiOSM extends GuiMapBase {
 					
 					URLConnection con = url.openConnection();
 					con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/75.0.1");
-					con.setConnectTimeout(15);
-					con.setReadTimeout(15);
+					con.setConnectTimeout(15000);
+					con.setReadTimeout(15000);
 					
 					String response = IOUtils.toString(con.getInputStream());
 					
-					new JsonParser().parse(response); // Validate that is is real json
+					new JsonParser().parse(response); // Validate that it's real json
 					
 					apiData = new ApiDataHandler(response, Projection.BTE_00);
 					this.ways = new ArrayList<>(apiData.ways);
@@ -182,11 +182,13 @@ public class GuiOSM extends GuiMapBase {
 	}
 	
 	protected void updateLists() {
-		ways = apiData.ways.stream().filter(j -> 
-				(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("building") != null)
-				|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("highway") != null))
-				.collect(Collectors.toList());
-		
-		nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("\u00a7a")).collect(Collectors.toList());
+		if (apiData != null) {
+			ways = apiData.ways.stream().filter(j -> 
+					(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("building") != null)
+					|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("highway") != null))
+					.collect(Collectors.toList());
+
+			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("\u00a7a")).collect(Collectors.toList());
+		}
 	}
 }
