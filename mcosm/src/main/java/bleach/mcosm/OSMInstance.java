@@ -22,7 +22,6 @@ public class OSMInstance {
 	public void tick() {
 		if (Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null) {
 			stop();
-    		structures.clear();
     		return;
     	}
 		
