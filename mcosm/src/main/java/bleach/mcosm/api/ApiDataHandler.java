@@ -227,7 +227,7 @@ public class ApiDataHandler {
 									Blocks.STAINED_HARDENED_CLAY.getDefaultState().withProperty(BlockStainedHardenedClay.COLOR, EnumDyeColor.CYAN), 1));
 							break;
 						case "track":
-							inst.add(new RoadStruct(nodes, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT), 2));
+							inst.add(new RoadStruct(nodes, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT), 1));
 							break;
 						case "residential": case "unclassified": case "trunk_link": case "primary_link": case "secondary_link": case "tertiary_link":
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 2));
