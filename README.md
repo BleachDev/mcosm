@@ -30,7 +30,7 @@ Features:
 
 There are several commands to load map data into minecraft, here are all of them:
 
-* ```/osm (0.3.2-dev)``` or ```/osm [lat1] [lon1] [lat2] [lon2]``` to open the download and build gui
+* ```/osm``` or ```/osm [lat1] [lon1] [lat2] [lon2]``` to open the download and build gui
 * ```/osmshell``` to start building the building right under you without a gui
 * ```/osmfile [path]``` to open data from a file and open the build gui
 * ```/osmapi [lat1] [lon1] [lat2] [lon2]``` to copy a link of the api url to your clipboard to manually open it
@@ -46,11 +46,13 @@ Also turn off roads and building outlines for the best result!
 
 * Go on a map (like google maps), go to the top left and bottom right corners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is lat and the second is lon.
 
-* Then run the osm command like ```/osm [lat1] [lon1] [lat2] [lon2]```, it will open the builder gui
+* Then run the ```/osm``` command which will open the builder gui
 
 * Select the features you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
 
-* Change the Lat/Lon coords if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
+* Then change the lat/lon coords to the area you want to fill (more than 10000-20000m² isn't recommended due to cubicchunks leaking insane memory and terra121 being slow at chunk loading)
+
+* if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
 
 * Then click the ```Download``` Button and wait for it to download, If it wasn't successful it should say an error in the output box
 
