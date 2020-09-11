@@ -26,7 +26,7 @@ public class TreeStruct extends Creatable {
 	public Operation getOperation(int op) {
 		switch(op) {
 			case 0: return new AlignToGroundOperation(Collections.singletonList(pos));
-			case 2: return new GenTreeOperation(pos, type);
+			case 1: return new GenTreeOperation(pos, type);
 		}
 		
 		return null;
