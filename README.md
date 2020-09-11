@@ -13,10 +13,14 @@ Features:
     * Making Each House The Right Height Based On Its OSM Data Height.
     * Adding Windows On Buildings Based On How Many Floors They Have.
     * Set Building Material Based On OSM Material Data.
-    * ~~Set Building Material Based On OSM Building Color Data~~ (```DISABLED```)
+    * Set Building Material Based On OSM Building Color Data.
 * Making Roads.
     * Creating Different Road Types Based On OSM Data.
-    * Including Walkways, Stairs And ~~Corridors Inside Houses~~. (```TODO```)
+    * Including Walkways, Stairs And ~~Corridors Inside Houses.~~ (```TODO```)
+    * ~~Automatically Making Tunnels.~~ (```TODO```)
+    * ~~Adding Pedestrian Crossings To Roads..~~ (```TODO```)
+* ~~Making Railroads.~~ (```TODO```)
+    * ~~Building Train Platforms.~~ (```TODO```)
 * Making Trees Based On ASM Data
 * Gui To Auto Download API Data And Build In One Command.
 * Load Data From A File Or From The API.
@@ -44,7 +48,7 @@ Also turn off roads and building outlines for the best result!
 
 * Then run the osm command like ```/osm [lat1] [lon1] [lat2] [lon2]```, it will open the builder gui
 
-* Select the feautres you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
+* Select the features you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
 
 * Change the Lat/Lon coords if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
 

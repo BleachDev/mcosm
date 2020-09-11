@@ -1,5 +1,7 @@
 package bleach.mcosm.api;
 
+import java.awt.Color;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,6 +17,7 @@ import bleach.mcosm.struct.BuildingStruct;
 import bleach.mcosm.struct.HouseStruct;
 import bleach.mcosm.struct.RoadStruct;
 import bleach.mcosm.struct.TreeStruct;
+import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
 import net.minecraft.block.BlockConcretePowder;
 import net.minecraft.block.BlockDirt;
@@ -140,7 +143,7 @@ public class ApiDataHandler {
 					
 					JsonElement jheight = jtags.get("height");
 					JsonElement jfloors = jtags.get("building:levels");
-					//JsonElement jcolor = jtags.get("building:colour");
+					JsonElement jcolor = jtags.get("building:colour");
 					JsonElement jmaterial = jtags.get("building:material");
 					
 					if (jheight != null) {
@@ -154,20 +157,20 @@ public class ApiDataHandler {
 						floors = jfloors.getAsInt();
 					}
 					
-					/*if (jcolor != null) {
+					if (jcolor != null) {
 						String color = jcolor.getAsString().replace("#", "");
 
 						try {
-							blockType = BlockColors.getClosestBlock(Integer.parseInt(color, 16)).getDefaultState();
+							blockType = BlockColors.getClosestBlock(Integer.parseInt(color, 16));
 						} catch (NumberFormatException nfe) {
 							try {
-								Field f = Color.class.getField(color.toLowerCase());
+								Field f = Color.class.getField(color.toUpperCase());
 
-								blockType = BlockColors.getClosestBlock(((Color) f.get(null)).getRGB()).getDefaultState();
+								blockType = BlockColors.getClosestBlock(((Color) f.get(null)).getRGB());
 							} catch (Exception e) {
 							}
 						}
-					}*/
+					}
 					
 					if (jmaterial != null) {
 						switch (jmaterial.getAsString()) {
