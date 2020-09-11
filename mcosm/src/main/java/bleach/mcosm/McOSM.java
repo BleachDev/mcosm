@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 public class McOSM {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
-    public static final String VERSION = "0.3.2-dev";
+    public static final String VERSION = "0.3.2";
     
     public static OSMInstance osmInst = new OSMInstance();
     
