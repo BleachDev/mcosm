@@ -3,7 +3,6 @@ package bleach.mcosm;
 import java.math.BigDecimal;
 
 import bleach.mcosm.gui.GuiOSM;
-import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
@@ -27,7 +26,6 @@ public class OSMCommand extends CommandBase {
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		BlockColors.getClosestBlock(0);
 		if (args.length == 0) {
 			double[] d = GeoPos.toLatLonBTE(Minecraft.getMinecraft().player.getPosition());
 			McOSM.guiQueue.add(new GuiOSM(
