@@ -75,23 +75,23 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().has("building")) {
 							
-							tempWays.add(new Tuple2<Integer, JsonObject>(5, jobj));
+							tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
 							
 						} else if (jtags.getAsJsonObject().has("highway")) {
 							
 							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
-							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
 								tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
+							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
+								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("footway")
 									|| jtags.getAsJsonObject().get("highway").getAsString().equals("steps")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
-							} else {
 								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+							} else {
+								tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
 							}
 							
 						} else if (jtags.getAsJsonObject().has("natural")) {
-							tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+							tempWays.add(new Tuple2<Integer, JsonObject>(5, jobj));
 						}
 					}
 					
