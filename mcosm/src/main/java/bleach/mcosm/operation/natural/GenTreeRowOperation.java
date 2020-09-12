@@ -8,20 +8,19 @@ import net.minecraft.util.math.BlockPos;
 
 public class GenTreeRowOperation extends GenTreeOperation {
 
-	public GenTreeRowOperation(List<BlockPos> poses) {
-		this(poses, TreeType.BIG_OAK);
+	public GenTreeRowOperation(List<BlockPos> poses, int seperation) {
+		this(poses, TreeType.BIG_OAK, seperation);
 	}
 	
-	public GenTreeRowOperation(List<BlockPos> poses, TreeType type) {
+	public GenTreeRowOperation(List<BlockPos> poses, TreeType type, int seperation) {
 		super();
 		
 		this.thread = new OperationThread<Void>() {
-			
 			public void run() {
 				for (int i = 0; i < poses.size(); i++) {
-					if (i % 4 != 0) continue;
+					if (i % (seperation + 1) != 0) continue;
 					
-					generateTree(TreeType.CANOPY, poses.get(i));
+					generateTree(type, poses.get(i));
 					setProgress(i / (double) poses.size());
 				}
 			}

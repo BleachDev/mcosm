@@ -22,6 +22,7 @@ import bleach.mcosm.struct.natural.TreeRowStruct;
 import bleach.mcosm.struct.natural.TreeStruct;
 import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
+import bleach.mcosm.utils.gen.TreeType;
 import net.minecraft.block.BlockConcretePowder;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockStainedHardenedClay;
@@ -91,7 +92,7 @@ public class ApiDataHandler {
 								tempWays.add(Pair.of(0, jobj));
 							}
 							
-						} else if (jtags.getAsJsonObject().has("natural")) {
+						} else if (jtags.getAsJsonObject().has("natural") || jtags.getAsJsonObject().has("barrier")) {
 							tempWays.add(Pair.of(5, jobj));
 						}
 					}
@@ -255,7 +256,15 @@ public class ApiDataHandler {
 					JsonElement jnatural = jtags.get("natural");
 					
 					if (jnatural.getAsString().equals("tree_row")) {
-						inst.add(new TreeRowStruct(nodes));
+						inst.add(new TreeRowStruct(nodes, TreeType.BIG_OAK, 3));
+					}
+				}
+				
+				if (jtags.has("barrier")) {
+					JsonElement jbarrier = jtags.get("barrier");
+					
+					if (jbarrier.getAsString().equals("hedge")) {
+						inst.add(new TreeRowStruct(nodes, TreeType.HEDGE, 0));
 					}
 				}
 			}

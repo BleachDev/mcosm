@@ -184,9 +184,10 @@ public class GuiOSM extends GuiMapBase {
 	protected void updateLists() {
 		if (apiData != null) {
 			ways = apiData.ways.stream().filter(j -> 
-					(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("building") != null)
-					|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("highway") != null)
-					|| (buttonList.get(4).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().get("natural") != null))
+					(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("building"))
+					|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("highway"))
+					|| (buttonList.get(4).displayString.startsWith("\u00a7a")
+							&& (j.get("tags").getAsJsonObject().has("natural") || j.get("tags").getAsJsonObject().has("barrier"))))
 					.collect(Collectors.toList());
 
 			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("\u00a7a")).collect(Collectors.toList());

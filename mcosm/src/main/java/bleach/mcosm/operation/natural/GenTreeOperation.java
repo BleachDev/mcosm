@@ -5,6 +5,7 @@ import java.util.Random;
 import bleach.mcosm.operation.Operation;
 import bleach.mcosm.operation.OperationThread;
 import bleach.mcosm.utils.gen.OSMGenCanopyTree;
+import bleach.mcosm.utils.gen.OSMGenHedge;
 import bleach.mcosm.utils.gen.TreeType;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockOldLeaf;
@@ -75,6 +76,9 @@ public class GenTreeOperation extends Operation {
 					break;
 				case CANOPY:
 					gen = new OSMGenCanopyTree(true);
+					break;
+				case HEDGE:
+					gen = new OSMGenHedge(true, 1);
 				default:
 			}
 		}

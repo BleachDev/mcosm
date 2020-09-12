@@ -7,29 +7,27 @@ import bleach.mcosm.operation.natural.GenTreeRowOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeLineOperation;
 import bleach.mcosm.struct.Creatable;
-import net.minecraft.block.BlockPlanks;
+import bleach.mcosm.utils.gen.TreeType;
 import net.minecraft.util.math.BlockPos;
 
 public class TreeRowStruct extends Creatable {
 
-	public BlockPlanks.EnumType type;
+	public TreeType type;
 	public List<BlockPos> poses;
 	public List<BlockPos> nodes;
+	public int seperation;
 
-	public TreeRowStruct(List<BlockPos> nodes) {
-		this(nodes, BlockPlanks.EnumType.OAK);
-	}
-
-	public TreeRowStruct(List<BlockPos> nodes, BlockPlanks.EnumType type) {
+	public TreeRowStruct(List<BlockPos> nodes, TreeType type, int seperation) {
 		this.type = type;
 		this.nodes = nodes;
+		this.seperation = seperation;
 	}
 	
 	public Operation getOperation(int op) {
 		switch(op) {
 			case 0: return new MakeLineOperation(nodes, 0);
 			case 1: return new AlignToGroundOperation(poses);
-			case 2: return new GenTreeRowOperation(poses);
+			case 2: return new GenTreeRowOperation(poses, type, seperation);
 		}
 		
 		return null;

@@ -9,5 +9,6 @@ public enum TreeType {
 	DARK_OAK,
 	ACACIA,
 	JUNGLE,
-	CANOPY
+	CANOPY,
+	HEDGE
 }
