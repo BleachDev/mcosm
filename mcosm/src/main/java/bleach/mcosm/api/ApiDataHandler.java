@@ -204,7 +204,7 @@ public class ApiDataHandler {
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
 									Blocks.CONCRETE.getDefaultState(), 4));
 							break;
-						case "seconday":
+						case "secondary":
 							inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4));
 							break;
@@ -236,9 +236,9 @@ public class ApiDataHandler {
 							inst.add(new RoadStruct(nodes, Blocks.BRICK_BLOCK.getDefaultState(), 1));
 							break;
 						default:
-							inst.add(new RoadStruct(nodes,
+							/*inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
-									Blocks.CONCRETE.getDefaultState(), 4));
+									Blocks.CONCRETE.getDefaultState(), 4));*/
 					}
 				}
 			}
