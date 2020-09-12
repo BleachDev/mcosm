@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,8 +18,8 @@ import bleach.mcosm.OSMInstance;
 import bleach.mcosm.struct.BuildingStruct;
 import bleach.mcosm.struct.HouseStruct;
 import bleach.mcosm.struct.RoadStruct;
-import bleach.mcosm.struct.TreeRowStruct;
-import bleach.mcosm.struct.TreeStruct;
+import bleach.mcosm.struct.natural.TreeRowStruct;
+import bleach.mcosm.struct.natural.TreeStruct;
 import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
 import net.minecraft.block.BlockConcretePowder;
@@ -28,7 +30,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
-import scala.Tuple2;
 
 public class ApiDataHandler {
 
@@ -47,10 +48,10 @@ public class ApiDataHandler {
 		this.data = json;
 		this.proj = proj;
 		
-		PriorityQueue<Tuple2<Integer /* priority */, JsonObject>> tempWays = new PriorityQueue<Tuple2<Integer, JsonObject>>(
-				new Comparator<Tuple2<Integer, JsonObject>>() {
-					public int compare(Tuple2<Integer, JsonObject> o1, Tuple2<Integer, JsonObject> o2) {
-						return o1._1 > o2._1 ? -1 : o1._1 == o2._1 ? 0 : 1;
+		PriorityQueue<Pair<Integer /* priority */, JsonObject>> tempWays = new PriorityQueue<Pair<Integer, JsonObject>>(
+				new Comparator<Pair<Integer, JsonObject>>() {
+					public int compare(Pair<Integer, JsonObject> o1, Pair<Integer, JsonObject> o2) {
+						return o1.getLeft() > o2.getLeft() ? -1 : o1.getLeft() == o2.getLeft() ? 0 : 1;
 					}
 				});
 		
@@ -75,23 +76,23 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().has("building")) {
 							
-							tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
+							tempWays.add(Pair.of(4, jobj));
 							
 						} else if (jtags.getAsJsonObject().has("highway")) {
 							
 							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
+								tempWays.add(Pair.of(3, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
+								tempWays.add(Pair.of(2, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("footway")
 									|| jtags.getAsJsonObject().get("highway").getAsString().equals("steps")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+								tempWays.add(Pair.of(1, jobj));
 							} else {
-								tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+								tempWays.add(Pair.of(0, jobj));
 							}
 							
 						} else if (jtags.getAsJsonObject().has("natural")) {
-							tempWays.add(new Tuple2<Integer, JsonObject>(5, jobj));
+							tempWays.add(Pair.of(5, jobj));
 						}
 					}
 					
@@ -100,7 +101,7 @@ public class ApiDataHandler {
 		}
 		
 		while (!tempWays.isEmpty()) {
-			ways.add(tempWays.poll()._2);
+			ways.add(tempWays.poll().getRight());
 		}
 	}
 	

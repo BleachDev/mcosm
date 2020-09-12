@@ -1,4 +1,4 @@
-package bleach.mcosm.struct;
+package bleach.mcosm.struct.natural;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import bleach.mcosm.operation.Operation;
 import bleach.mcosm.operation.natural.GenTreeRowOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeLineOperation;
+import bleach.mcosm.struct.Creatable;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.util.math.BlockPos;
 
