@@ -56,8 +56,7 @@ public class OSMApiCommand extends CommandBase {
 		
 		String coords = minLat + "," + minLon + "," + maxLat + "," + maxLon;
 		String boundCoords = (minLat - 0.0002) + "," + (minLon - 0.0002) + "," + (maxLat + 0.0002) + "," + (maxLon + 0.0002);
-		return "https://overpass-api.de/api/interpreter?data=[out:json];(way[building]("
-				+ coords + ");way[highway](" + coords + ");node[natural=tree](" + coords + "););out geom(" + boundCoords + ");";
+		return "https://overpass-api.de/api/interpreter?data=[out:json];(way(" + coords + ");node[natural=tree](" + coords + "););out geom(" + boundCoords + ");";
 	}
 	
 

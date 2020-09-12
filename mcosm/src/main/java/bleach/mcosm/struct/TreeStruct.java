@@ -4,21 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 import bleach.mcosm.operation.Operation;
-import bleach.mcosm.operation.misc.GenTreeOperation;
+import bleach.mcosm.operation.natural.GenTreeOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
-import net.minecraft.block.BlockPlanks;
+import bleach.mcosm.utils.gen.TreeType;
 import net.minecraft.util.math.BlockPos;
 
 public class TreeStruct extends Creatable {
 
-	public BlockPlanks.EnumType type;
+	public TreeType type;
 	public BlockPos pos;
 
 	public TreeStruct(BlockPos pos) {
-		this(pos, BlockPlanks.EnumType.OAK);
+		this(pos, TreeType.BIG_OAK);
 	}
 
-	public TreeStruct(BlockPos pos, BlockPlanks.EnumType type) {
+	public TreeStruct(BlockPos pos, TreeType type) {
 		this.type = type;
 		this.pos = pos;
 	}

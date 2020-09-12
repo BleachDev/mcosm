@@ -16,6 +16,7 @@ import bleach.mcosm.OSMInstance;
 import bleach.mcosm.struct.BuildingStruct;
 import bleach.mcosm.struct.HouseStruct;
 import bleach.mcosm.struct.RoadStruct;
+import bleach.mcosm.struct.TreeRowStruct;
 import bleach.mcosm.struct.TreeStruct;
 import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
@@ -74,21 +75,23 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().get("building") != null) {
 							
-							tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
+							tempWays.add(new Tuple2<Integer, JsonObject>(5, jobj));
 							
 						} else if (jtags.getAsJsonObject().get("highway") != null) {
 							
 							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
+								tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
+								tempWays.add(new Tuple2<Integer, JsonObject>(3, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("footway")
 									|| jtags.getAsJsonObject().get("highway").getAsString().equals("steps")) {
-								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
+								tempWays.add(new Tuple2<Integer, JsonObject>(2, jobj));
 							} else {
-								tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
+								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
 							}
 							
+						} else if (jtags.getAsJsonObject().get("natural") != null) {
+							tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
 						}
 					}
 					
@@ -132,8 +135,9 @@ public class ApiDataHandler {
 			if (j.get("tags") != null) {
 				JsonObject jtags = j.get("tags").getAsJsonObject();
 				
-				JsonElement jbuilding = jtags.get("building");
-				if (jbuilding != null) {
+				if (jtags.has("building")) {
+					JsonElement jbuilding = jtags.get("building");
+					
 					IBlockState blockType = Blocks.CONCRETE.getDefaultState();
 					IBlockState windowType = Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.SILVER);
 					
@@ -189,8 +193,8 @@ public class ApiDataHandler {
 					}
 				}
 				
-				JsonElement jroad = jtags.get("highway");
-				if (jroad != null) {
+				if (jtags.has("highway")) {
+					JsonElement jroad = jtags.get("highway");
 					nodes = nodes.stream().map(b -> b.down()).collect(Collectors.toList());
 					
 					switch (jroad.getAsString()) {
@@ -239,6 +243,14 @@ public class ApiDataHandler {
 							/*inst.add(new RoadStruct(nodes,
 									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
 									Blocks.CONCRETE.getDefaultState(), 4));*/
+					}
+				}
+				
+				if (jtags.has("natural")) {
+					JsonElement jnatural = jtags.get("natural");
+					
+					if (jnatural.getAsString().equals("tree_row")) {
+						inst.add(new TreeRowStruct(nodes));
 					}
 				}
 			}
