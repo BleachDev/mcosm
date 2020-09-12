@@ -73,11 +73,11 @@ public class ApiDataHandler {
 				case "way":
 					JsonElement jtags = jobj.get("tags");
 					if (jtags != null) {
-						if (jtags.getAsJsonObject().get("building") != null) {
+						if (jtags.getAsJsonObject().has("building")) {
 							
 							tempWays.add(new Tuple2<Integer, JsonObject>(5, jobj));
 							
-						} else if (jtags.getAsJsonObject().get("highway") != null) {
+						} else if (jtags.getAsJsonObject().has("highway")) {
 							
 							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
 								tempWays.add(new Tuple2<Integer, JsonObject>(4, jobj));
@@ -90,7 +90,7 @@ public class ApiDataHandler {
 								tempWays.add(new Tuple2<Integer, JsonObject>(1, jobj));
 							}
 							
-						} else if (jtags.getAsJsonObject().get("natural") != null) {
+						} else if (jtags.getAsJsonObject().has("natural")) {
 							tempWays.add(new Tuple2<Integer, JsonObject>(0, jobj));
 						}
 					}
@@ -132,7 +132,7 @@ public class ApiDataHandler {
 				}
 			}
 			
-			if (j.get("tags") != null) {
+			if (j.has("tags")) {
 				JsonObject jtags = j.get("tags").getAsJsonObject();
 				
 				if (jtags.has("building")) {
@@ -200,12 +200,12 @@ public class ApiDataHandler {
 					switch (jroad.getAsString()) {
 						case "motorway":
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 6,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 6));
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
 							break;
 						case "primary":
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
 									Blocks.CONCRETE.getDefaultState(), 4));
 							break;
 						case "secondary":
@@ -214,17 +214,21 @@ public class ApiDataHandler {
 							break;
 						case "trunk":
 							inst.add(new RoadStruct(nodes,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 5,
-									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 5));
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 4,
+									Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.YELLOW), 4));
 							break;
 						case "tertiary": case "motorway_link":
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 3));
 							break;
 						case "service":
-							inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 2));
-							break;
-						case "alley":
-							inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 1));
+							if (jtags.has("service")
+									&& (jtags.get("service").getAsString().equals("alley")
+											|| jtags.get("service").getAsString().equals("driveway"))) {
+								inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 1));
+							} else {
+								inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 2));
+							}
+							
 							break;
 						case "cycleway": case "pedestrian":
 							inst.add(new RoadStruct(nodes,
