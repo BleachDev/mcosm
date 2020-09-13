@@ -9,22 +9,23 @@ A Minecraft OSM Shell Generator fully compatible with CubicChunks, Terra121 and 
 This mod works in CubicChunks or in normal world, and in the Terra121 earth world, And can be used to build in earth scale ontop of the Terra121 building outlines or build around the player. To use it use the ```/osm``` command.
 
 Features:
-* Making Building Shells.
-    * Making Each House The Right Height Based On Its OSM Data Height.
-    * Adding Windows On Buildings Based On How Many Floors They Have.
-    * Set Building Material Based On OSM Material Data.
-    * Set Building Material Based On OSM Building Color Data.
-* Making Roads.
-    * Creating Different Road Types Based On OSM Data.
-    * Including Walkways, Stairs And ~~Corridors Inside Houses.~~ (```TODO```)
-    * ~~Automatically Making Tunnels.~~ (```TODO```)
-    * ~~Adding Pedestrian Crossings To Roads..~~ (```TODO```)
-* ~~Making Railroads.~~ (```TODO```)
-    * ~~Building Train Platforms.~~ (```TODO```)
-* Making Trees Based On ASM Data
-* Gui To Auto Download API Data And Build In One Command.
-* Load Data From A File Or From The API.
-* Building In Cubic Or Non-Cubic Chunk Worlds.
+* Making building shells.
+    * Making each house the right height based on its OSM data height.
+    * Adding windows on buildings based on how many floors they have.
+    * Set building material based on OSM material data.
+    * Set building material based on OSM building color data.
+* Making roads.
+    * Creating different road types based on OSM data.
+    * Including walkways, stairs and ~~corridors inside houses.~~ (```TODO```)
+    * ~~Automatically making tunnels.~~ (```TODO```)
+    * ~~Adding pedestrian crossings to roads..~~ (```TODO```)
+* ~~Making railroads.~~ (```TODO```)
+    * ~~Building train platforms.~~ (```TODO```)
+* Making vegetation
+    * Making trees, tree rows and hedges based on OSM data.
+* Gui to auto download API data and build in one command.
+* Load data from a file or from the API.
+* Building in Cubic or Non-Cubic chunk worlds.
 
 ## Commands
 
