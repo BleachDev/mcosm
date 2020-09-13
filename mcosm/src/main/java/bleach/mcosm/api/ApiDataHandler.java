@@ -223,12 +223,21 @@ public class ApiDataHandler {
 							inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 3));
 							break;
 						case "service":
-							if (jtags.has("service")
-									&& (jtags.get("service").getAsString().equals("alley")
-											|| jtags.get("service").getAsString().equals("driveway"))) {
-								inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 1));
+							if (jtags.has("service")) {
+								JsonElement jservice = jtags.get("service");
+								
+								switch (jservice.getAsString()) {
+									case "alley": case "drive-through":
+										inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 1));
+										break;
+									case "driveway":
+										inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 1));
+										break;
+									default:
+										inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 2));
+								}
 							} else {
-								inst.add(new RoadStruct(nodes, Blocks.GRAVEL.getDefaultState(), 2));
+								inst.add(new RoadStruct(nodes, Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY), 2));
 							}
 							
 							break;
@@ -256,7 +265,7 @@ public class ApiDataHandler {
 					JsonElement jnatural = jtags.get("natural");
 					
 					if (jnatural.getAsString().equals("tree_row")) {
-						inst.add(new TreeRowStruct(nodes, TreeType.BIG_OAK, 3));
+						inst.add(new TreeRowStruct(nodes, TreeType.CANOPY, 3));
 					}
 				}
 				
