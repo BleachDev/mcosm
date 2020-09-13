@@ -16,7 +16,6 @@ import com.google.gson.JsonParser;
 
 import bleach.mcosm.OSMInstance;
 import bleach.mcosm.struct.building.BuildingStruct;
-import bleach.mcosm.struct.building.HouseStruct;
 import bleach.mcosm.struct.natural.TreeRowStruct;
 import bleach.mcosm.struct.natural.TreeStruct;
 import bleach.mcosm.struct.road.RoadStruct;
@@ -143,24 +142,21 @@ public class ApiDataHandler {
 					IBlockState blockType = Blocks.CONCRETE.getDefaultState();
 					IBlockState windowType = Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.SILVER);
 					
-					boolean heightSet = false;
 					int height = 7;
 					int floors = 0;
 					
-					JsonElement jheight = jtags.get("height");
 					JsonElement jfloors = jtags.get("building:levels");
+					JsonElement jheight = jtags.get("height");
 					JsonElement jcolor = jtags.get("building:colour");
 					JsonElement jmaterial = jtags.get("building:material");
 					
-					if (jheight != null) {
-						height = (int) jheight.getAsDouble();
-						heightSet = true;
+					if (jfloors != null) {
+						height = (int) Math.round(jfloors.getAsInt() * 3.5);
+						floors = jfloors.getAsInt();
 					}
 					
-					if (jfloors != null) {
-						if (!heightSet) height = (int) Math.round(jfloors.getAsInt() * 3.5);
-						heightSet = true;
-						floors = jfloors.getAsInt();
+					if (jheight != null) {
+						height = (int) jheight.getAsDouble();
 					}
 					
 					if (jcolor != null) {
@@ -187,12 +183,10 @@ public class ApiDataHandler {
 					
 					if (jbuilding.getAsString().equals("garage")) {
 						blockType = Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY);
-						if (!heightSet) height = 4;
-						
-						inst.add(new BuildingStruct(nodes, blockType, height));
-					} else {
-						inst.add(new HouseStruct(nodes, blockType, blockType, windowType, height, floors));
+						if (jfloors != null || jheight != null) height = 4;
 					}
+					
+					inst.add(new BuildingStruct(nodes, blockType, floors > 0 ? windowType : null, height, floors));
 				}
 				
 				if (jtags.has("highway")) {

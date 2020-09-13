@@ -24,8 +24,6 @@ public class StretchBlocksOperation extends AbstractBlockOperation {
 			if (!chunks.contains(c)) chunks.add(c);
 		}
 		
-		// FIXME: crashes on > 255 y on non-cubichunks worlds
-		
 		this.thread = new OperationThread<Void>() {
 			
 			public void run() {
