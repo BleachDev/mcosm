@@ -1,4 +1,4 @@
-package bleach.mcosm.struct;
+package bleach.mcosm.struct.building;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import bleach.mcosm.operation.block.StretchBlocksOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeFillOperation;
 import bleach.mcosm.operation.nodes.MakeOutlineOperation;
+import bleach.mcosm.struct.Creatable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 

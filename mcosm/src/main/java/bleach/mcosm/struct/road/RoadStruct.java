@@ -1,4 +1,4 @@
-package bleach.mcosm.struct;
+package bleach.mcosm.struct.road;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -10,6 +10,7 @@ import bleach.mcosm.operation.Operation;
 import bleach.mcosm.operation.block.SetBlocksOperation;
 import bleach.mcosm.operation.nodes.AlignToGroundOperation;
 import bleach.mcosm.operation.nodes.MakeStripeLineOperation;
+import bleach.mcosm.struct.Creatable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

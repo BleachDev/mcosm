@@ -1,7 +1,8 @@
-package bleach.mcosm;
+package bleach.mcosm.command;
 
 import java.math.BigDecimal;
 
+import bleach.mcosm.McOSM;
 import bleach.mcosm.gui.GuiOSM;
 import bleach.mcosm.utils.GeoPos;
 import net.minecraft.client.Minecraft;

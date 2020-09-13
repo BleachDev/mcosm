@@ -15,9 +15,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 import bleach.mcosm.McOSM;
-import bleach.mcosm.OSMApiCommand;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.api.ApiDataHandler.Projection;
+import bleach.mcosm.command.OSMApiCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;

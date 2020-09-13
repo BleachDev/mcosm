@@ -1,8 +1,10 @@
-package bleach.mcosm;
+package bleach.mcosm.command;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import bleach.mcosm.McOSM;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.gui.GuiOSMFile;
 import net.minecraft.command.CommandBase;

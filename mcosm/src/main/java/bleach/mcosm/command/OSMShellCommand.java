@@ -1,4 +1,4 @@
-package bleach.mcosm;
+package bleach.mcosm.command;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import bleach.mcosm.McOSM;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.api.ApiDataHandler.Projection;
 import bleach.mcosm.utils.GeoPos;

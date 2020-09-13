@@ -3,6 +3,10 @@ package bleach.mcosm;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import bleach.mcosm.command.OSMApiCommand;
+import bleach.mcosm.command.OSMCommand;
+import bleach.mcosm.command.OSMFileCommand;
+import bleach.mcosm.command.OSMShellCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.client.ClientCommandHandler;

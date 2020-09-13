@@ -1,4 +1,4 @@
-package bleach.mcosm.struct;
+package bleach.mcosm.struct.building;
 
 import java.util.List;
 import java.util.stream.Collectors;

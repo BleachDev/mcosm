@@ -15,11 +15,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import bleach.mcosm.OSMInstance;
-import bleach.mcosm.struct.BuildingStruct;
-import bleach.mcosm.struct.HouseStruct;
-import bleach.mcosm.struct.RoadStruct;
+import bleach.mcosm.struct.building.BuildingStruct;
+import bleach.mcosm.struct.building.HouseStruct;
 import bleach.mcosm.struct.natural.TreeRowStruct;
 import bleach.mcosm.struct.natural.TreeStruct;
+import bleach.mcosm.struct.road.RoadStruct;
 import bleach.mcosm.utils.BlockColors;
 import bleach.mcosm.utils.GeoPos;
 import bleach.mcosm.utils.gen.TreeType;

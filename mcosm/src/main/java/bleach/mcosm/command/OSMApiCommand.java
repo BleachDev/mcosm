@@ -1,4 +1,4 @@
-package bleach.mcosm;
+package bleach.mcosm.command;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
