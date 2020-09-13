@@ -183,7 +183,7 @@ public class ApiDataHandler {
 					
 					if (jbuilding.getAsString().equals("garage")) {
 						blockType = Blocks.CONCRETE.getDefaultState().withProperty(BlockConcretePowder.COLOR, EnumDyeColor.GRAY);
-						if (jfloors != null || jheight != null) height = 4;
+						if (jfloors == null && jheight == null) height = 4;
 					}
 					
 					inst.add(new BuildingStruct(nodes, blockType, floors > 0 ? windowType : null, height, floors));
