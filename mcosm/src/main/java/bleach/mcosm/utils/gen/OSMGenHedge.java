@@ -14,7 +14,10 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class OSMGenHedge extends WorldGenAbstractTree {
 	
-	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockOldLeaf.CHECK_DECAY, false);
+	private static final IBlockState LEAF = Blocks.LEAVES.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE)
+			.withProperty(BlockOldLeaf.CHECK_DECAY, false)
+			.withProperty(BlockOldLeaf.DECAYABLE, false);
+	
 	protected int height;
 
 	public OSMGenHedge(boolean notify, int height) {
@@ -23,9 +26,7 @@ public class OSMGenHedge extends WorldGenAbstractTree {
 	}
 
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		setBlockAndNotifyAdequately(worldIn, position, LEAF);
-		
-		for (int i = 1; i <= height; i++) {
+		for (int i = 0; i <= height; i++) {
 			setBlockAndNotifyAdequately(worldIn, position.up(i), LEAF);
 		}
 		
