@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -159,17 +160,15 @@ public class GuiOSM extends GuiMapBase {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		super.keyTyped(typedChar, keyCode);
 		
-		if (Character.isLetter(typedChar)) return;
-		
 		latField.textboxKeyTyped(typedChar, keyCode);
 		lonField.textboxKeyTyped(typedChar, keyCode);
 		lat1Field.textboxKeyTyped(typedChar, keyCode);
 		lon1Field.textboxKeyTyped(typedChar, keyCode);
 		
-		if (latField.isFocused()) try { lat = Double.parseDouble(latField.getText()); } catch (Exception e) { }
-		if (lonField.isFocused()) try { lon = Double.parseDouble(lonField.getText()); } catch (Exception e) { }
-		if (lat1Field.isFocused()) try { lat1 = Double.parseDouble(lat1Field.getText()); } catch (Exception e) { }
-		if (lon1Field.isFocused()) try { lon1 = Double.parseDouble(lon1Field.getText()); } catch (Exception e) { }
+		if (latField.isFocused() && NumberUtils.isCreatable(latField.getText())) lat = NumberUtils.createNumber(latField.getText()).doubleValue();
+		if (lonField.isFocused() && NumberUtils.isCreatable(lonField.getText())) lon = NumberUtils.createNumber(lonField.getText()).doubleValue();
+		if (lat1Field.isFocused() && NumberUtils.isCreatable(lat1Field.getText())) lat1 = NumberUtils.createNumber(lat1Field.getText()).doubleValue();
+		if (lon1Field.isFocused() && NumberUtils.isCreatable(lon1Field.getText())) lon1 = NumberUtils.createNumber(lon1Field.getText()).doubleValue();
     }
 	
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {

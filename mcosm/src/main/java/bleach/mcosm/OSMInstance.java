@@ -37,7 +37,7 @@ public class OSMInstance {
     		}
     		
     		Creatable c = structures.get(0);
-    		if (c.progress != "") Minecraft.getMinecraft().ingameGUI.addChatMessage(
+    		if (!c.progress.isEmpty()) Minecraft.getMinecraft().ingameGUI.addChatMessage(
     				ChatType.GAME_INFO, new TextComponentString("\u00a75" + structures.size() + " Queue | \u00a76" + c.progress));
     		
     		if (c.tick()) {

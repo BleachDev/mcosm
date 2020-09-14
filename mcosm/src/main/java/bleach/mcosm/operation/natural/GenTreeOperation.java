@@ -47,7 +47,7 @@ public class GenTreeOperation extends Operation {
 		World world = Minecraft.getMinecraft().getIntegratedServer().getWorld(Minecraft.getMinecraft().player.dimension);
 		
 		Random rand = new Random();
-		WorldGenAbstractTree gen = null;
+		WorldGenAbstractTree gen;
 		
 		if (type == null) {
 			gen = new OSMGenCanopyTree(true);
@@ -80,6 +80,7 @@ public class GenTreeOperation extends Operation {
 				case HEDGE:
 					gen = new OSMGenHedge(true, 1);
 				default:
+					return;
 			}
 		}
 		
