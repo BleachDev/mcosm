@@ -5,6 +5,7 @@ import java.util.Queue;
 
 import bleach.mcosm.command.OSMApiCommand;
 import bleach.mcosm.command.OSMCommand;
+import bleach.mcosm.command.OSMCoordsCommand;
 import bleach.mcosm.command.OSMFileCommand;
 import bleach.mcosm.command.OSMShellCommand;
 import net.minecraft.client.Minecraft;
@@ -36,6 +37,7 @@ public class McOSM {
     	ClientCommandHandler.instance.registerCommand(new OSMFileCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMShellCommand());
+    	ClientCommandHandler.instance.registerCommand(new OSMCoordsCommand());
     }
     
     @SubscribeEvent

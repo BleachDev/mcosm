@@ -36,6 +36,7 @@ There are several commands to load map data into minecraft, here are all of them
 * ```/osmfile [path]``` to open data from a file and open the build gui
 * ```/osmapi [lat1] [lon1] [lat2] [lon2]``` to copy a link of the api url to your clipboard to manually open it
 * ```/osm stop``` to stop all current tasks
+* ```/osmcoords <to/from> <x/lat> <z/lon>``` to convert Geo Coords to blocks
 
 ## Usage
 
