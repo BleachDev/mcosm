@@ -3,6 +3,7 @@ package bleach.mcosm.command;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
-import scala.actors.threadpool.Arrays;
 
 public class OSMShellCommand extends CommandBase {
 
