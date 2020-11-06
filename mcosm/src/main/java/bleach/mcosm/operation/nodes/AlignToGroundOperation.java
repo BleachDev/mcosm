@@ -9,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 
 public class AlignToGroundOperation extends Operation {
@@ -26,11 +25,11 @@ public class AlignToGroundOperation extends Operation {
 				List<BlockPos> aligned = new ArrayList<>();
 				
 				for (BlockPos b: poses) {
-					MutableBlockPos curPos = new MutableBlockPos(b.getX(), 1, b.getZ());
-					BlockPos lowestPos = new BlockPos(curPos);
+					//MutableBlockPos curPos = new MutableBlockPos(b.getX(), 1, b.getZ());
+					BlockPos lowestPos = b;
 					
 					// Way of getting the highest block on a coordinate with cubicchunks infinite height
-					for (int i = 255; i < 9200; i += 255) {
+					/*for (int i = 255; i < 9200; i += 255) {
 						curPos.setY(i);
 						Block bl = world.getBlockState(curPos).getBlock();
 						
@@ -58,6 +57,16 @@ public class AlignToGroundOperation extends Operation {
 							if (airStreak <= 255) {
 								i = lowestPos.getY();
 							}
+						}
+					}*/
+					
+					int ground = world.getHeight(b.getX(), b.getZ());
+					for (int h = ground; h > ground - 255; h--) {
+						BlockPos curPos = b.down(ground - h);
+						
+						if (SOLID.contains(world.getBlockState(curPos).getBlock())) {
+							lowestPos = curPos.up();
+							break;
 						}
 					}
 					
