@@ -59,7 +59,7 @@ public class GuiMapBase extends GuiScreen {
 			}
 		}
 
-		long areaSize = (long) ((Math.abs(lat1 - lat) + Math.abs(lon1 - lon)) * 10000000l);
+		long areaSize = (long) (Math.abs(lat1 - lat) * 100000) * (long) (Math.abs(lon1 - lon) * 100000);
 		drawString(fontRenderer, "Selected: " + areaSize + "m\u00b2 ("
 				+ Math.round(Math.abs(lat1 - lat) * 100000) + "m*" + Math.round(Math.abs(lon1 - lon) * 100000) + "m)"
 				, mapX + 2, mapY + mapHei - 9, 0xc0c0c0);
