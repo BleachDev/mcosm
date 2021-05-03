@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -132,7 +133,7 @@ public class GuiOSM extends GuiMapBase {
 					con.setConnectTimeout(15000);
 					con.setReadTimeout(15000);
 					
-					String response = IOUtils.toString(con.getInputStream());
+					String response = IOUtils.toString(con.getInputStream(), StandardCharsets.UTF_8);
 					
 					new JsonParser().parse(response); // Validate that it's real json
 					

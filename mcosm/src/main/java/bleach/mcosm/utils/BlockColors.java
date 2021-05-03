@@ -20,7 +20,8 @@ public class BlockColors {
 	private static void initBlockColors() {
 		COLORS = new HashMap<>();
 		
-		for (Block block : Block.REGISTRY) {
+		for (Object obj : Block.REGISTRY) {
+			Block block = (Block) obj;
 			IBlockState state = block.getDefaultState();
 			
 			if (!state.isFullBlock() || state.isTranslucent() || !(block instanceof BlockColored)) continue;

@@ -1,6 +1,7 @@
 package bleach.mcosm.command;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import bleach.mcosm.McOSM;
 import bleach.mcosm.gui.GuiOSM;
@@ -29,11 +30,16 @@ public class OSMCommand extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length == 0) {
 			double[] d = GeoPos.toLatLonBTE(Minecraft.getMinecraft().player.getPosition());
+			
+			if (Double.isNaN(d[0]) || !Double.isFinite(d[0]) || Double.isNaN(d[0]) || !Double.isFinite(d[1])) {
+				throw new CommandException("Error: Invalid Current GeoPos", new Object[0]);
+			}
+
 			McOSM.guiQueue.add(new GuiOSM(
-					new BigDecimal(d[0] - 0.001).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue(),
-					new BigDecimal(d[1] - 0.001).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue(),
-					new BigDecimal(d[0] + 0.001).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue(),
-					new BigDecimal(d[1] + 0.001).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue()));
+					new BigDecimal(d[0] - 0.001).setScale(6, RoundingMode.HALF_UP).doubleValue(),
+					new BigDecimal(d[1] - 0.001).setScale(6, RoundingMode.HALF_UP).doubleValue(),
+					new BigDecimal(d[0] + 0.001).setScale(6, RoundingMode.HALF_UP).doubleValue(),
+					new BigDecimal(d[1] + 0.001).setScale(6, RoundingMode.HALF_UP).doubleValue()));
 		} else if (args.length == 4) {
 			try {
 				McOSM.guiQueue.add(new GuiOSM(Double.parseDouble(args[0]), Double.parseDouble(args[1]),
