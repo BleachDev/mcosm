@@ -46,13 +46,13 @@ Also turn off roads and building outlines for the best result!
 ```
 
 
-* Go on a map (like google maps), go to the top left and bottom right corners of the area part you want to download and copy the lat and lon coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is lat and the second is lon.
+* Go on a map (like google maps), go to the top left and bottom right corners of the area part you want to download and copy the latitude and longitude coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is latitude and the second is longitude.
 
 * Then run the ```/osm``` command which will open the builder gui
 
 * Select the features you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
 
-* Then change the lat/lon coords to the area you want to fill (more than 10000-20000m² isn't recommended due to cubicchunks leaking insane memory and terra121 being slow at chunk loading)
+* Then change the latitude/longitude coords to the area you want to fill (more than 10000-20000mÂ² isn't recommended due to cubicchunks leaking insane memory and terra121 being slow at chunk loading)
 
 * if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
 
@@ -70,4 +70,4 @@ If you want to contribute:
 * Once you are done making your edits, push the changes to your fork
 * Then make a pull request
 
-Or if you are too lazy to use git, you can message me your contribution on discord ```Bleach#0136``` or [join the discord server.](https://discord.gg/xPuZy3j)
+Or if you are too lazy to use git, you can message me your contribution on discord ```Bleach#0136```
