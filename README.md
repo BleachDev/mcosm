@@ -63,11 +63,8 @@ Also turn off roads and building outlines for the best result!
 ## Contributing
 
 If you want to contribute:
-* Fork the project
-* Download the source
-* Follow the instructions in the forge README
-* Add Git to your IDE
-* Once you are done making your edits, push the changes to your fork
-* Then make a pull request
+* Fork and clone the project
+* Follow the instructions in the README-FORGE file
+* Once you are done making your edits, push the changes to your fork and make a pull request
 
 Or if you are too lazy to use git, you can message me your contribution on discord ```Bleach#0136```

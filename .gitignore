@@ -1,5 +1,3 @@
-/bin/
-
 # eclipse
 bin
 *.launch
@@ -7,3 +5,19 @@ bin
 .metadata
 .classpath
 .project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+logs
