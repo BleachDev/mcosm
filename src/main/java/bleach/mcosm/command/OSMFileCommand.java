@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+
 import bleach.mcosm.McOSM;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.gui.GuiOSMFile;
@@ -30,11 +34,16 @@ public class OSMFileCommand extends CommandBase {
 		if (args.length == 0 || args.length > 1) throw new WrongUsageException(getUsage(sender), new Object[0]);
 		try {
 			String data = new String(Files.readAllBytes(Paths.get(args[0])));
-			ApiDataHandler apiHandler = new ApiDataHandler(data, ApiDataHandler.Projection.BTE_00);
+			JsonObject json = new JsonParser().parse(data).getAsJsonObject(); 
+			
+			ApiDataHandler apiHandler = new ApiDataHandler(json, ApiDataHandler.Projection.BTE_00);
 			McOSM.guiQueue.add(new GuiOSMFile(apiHandler));
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new CommandException("Invalid Path, Path Should Be: " + "C:\\example\\folder\\interpreter.json", new Object[0]);
+			throw new CommandException("Invalid File Path, Path Should Be: C:\\example\\folder\\interpreter.json", new Object[0]);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+			throw new CommandException("Invalid File Contents?", new Object[0]);
 		}
 	}
 

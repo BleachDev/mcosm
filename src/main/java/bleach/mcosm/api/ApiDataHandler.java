@@ -3,16 +3,12 @@ package bleach.mcosm.api;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import bleach.mcosm.OSMInstance;
 import bleach.mcosm.struct.building.BuildingStruct;
@@ -33,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class ApiDataHandler {
 
-	private String data;
+	private JsonObject data;
 	public Projection proj;
 	
 	public List<JsonObject> ways = new ArrayList<>();
@@ -44,19 +40,13 @@ public class ApiDataHandler {
 	public double maxLat = Integer.MIN_VALUE;
 	public double maxLon = Integer.MIN_VALUE;
 	
-	public ApiDataHandler(String json, Projection proj) {
+	public ApiDataHandler(JsonObject json, Projection proj) {
 		this.data = json;
 		this.proj = proj;
 		
-		PriorityQueue<Pair<Integer /* priority */, JsonObject>> tempWays = new PriorityQueue<Pair<Integer, JsonObject>>(
-				new Comparator<Pair<Integer, JsonObject>>() {
-					public int compare(Pair<Integer, JsonObject> o1, Pair<Integer, JsonObject> o2) {
-						return o1.getLeft() > o2.getLeft() ? -1 : o1.getLeft() == o2.getLeft() ? 0 : 1;
-					}
-				});
-		
-		JsonObject jsondata = new JsonParser().parse(data).getAsJsonObject();
-		for (JsonElement j: jsondata.get("elements").getAsJsonArray()) {
+		PriorityQueue<OrderedData> tempWays = new PriorityQueue<>();
+
+		for (JsonElement j: data.get("elements").getAsJsonArray()) {
 			JsonObject jobj = j.getAsJsonObject();
 			
 			try {
@@ -65,7 +55,7 @@ public class ApiDataHandler {
 				minLon = Math.min(minLon, jbounds.get("minlon").getAsDouble());
 				maxLat = Math.max(maxLat, jbounds.get("maxlat").getAsDouble());
 				maxLon = Math.max(maxLon, jbounds.get("maxlon").getAsDouble());
-			} catch (Exception e) { }
+			} catch (Exception ignored) { }
 			
 			switch (jobj.get("type").getAsString()) {
 				case "node":
@@ -76,23 +66,23 @@ public class ApiDataHandler {
 					if (jtags != null) {
 						if (jtags.getAsJsonObject().has("building")) {
 							
-							tempWays.add(Pair.of(4, jobj));
+							tempWays.add(new OrderedData(4, jobj));
 							
 						} else if (jtags.getAsJsonObject().has("highway")) {
 							
 							if (jtags.getAsJsonObject().get("highway").getAsString().equals("service")) {
-								tempWays.add(Pair.of(3, jobj));
+								tempWays.add(new OrderedData(3, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("cycleway")) {
-								tempWays.add(Pair.of(2, jobj));
+								tempWays.add(new OrderedData(2, jobj));
 							} else if (jtags.getAsJsonObject().get("highway").getAsString().equals("footway")
 									|| jtags.getAsJsonObject().get("highway").getAsString().equals("steps")) {
-								tempWays.add(Pair.of(1, jobj));
+								tempWays.add(new OrderedData(1, jobj));
 							} else {
-								tempWays.add(Pair.of(0, jobj));
+								tempWays.add(new OrderedData(0, jobj));
 							}
 							
 						} else if (jtags.getAsJsonObject().has("natural") || jtags.getAsJsonObject().has("barrier")) {
-							tempWays.add(Pair.of(5, jobj));
+							tempWays.add(new OrderedData(5, jobj));
 						}
 					}
 					
@@ -100,9 +90,8 @@ public class ApiDataHandler {
 			}
 		}
 		
-		while (!tempWays.isEmpty()) {
-			ways.add(tempWays.poll().getRight());
-		}
+		while (!tempWays.isEmpty())
+			ways.add(tempWays.poll().data);
 	}
 	
 	public void addToInstance(OSMInstance inst) {
@@ -295,5 +284,21 @@ public class ApiDataHandler {
 		NAIVE_PLAYER,
 		BTE_00,
 		BTE_PLAYER
+	}
+	
+	private static class OrderedData implements Comparable<OrderedData> {
+		
+		public int priority;
+		public JsonObject data;
+		
+		public OrderedData(int priority, JsonObject data) {
+			this.priority = priority;
+			this.data = data;
+		}
+
+		@Override
+		public int compareTo(OrderedData o) {
+			return o.priority - priority;
+		}
 	}
 }

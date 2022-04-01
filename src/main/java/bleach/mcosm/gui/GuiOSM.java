@@ -2,14 +2,10 @@ package bleach.mcosm.gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.gson.JsonObject;
@@ -17,9 +13,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 import bleach.mcosm.McOSM;
+import bleach.mcosm.api.API;
 import bleach.mcosm.api.ApiDataHandler;
 import bleach.mcosm.api.ApiDataHandler.Projection;
-import bleach.mcosm.command.OSMApiCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -122,22 +118,12 @@ public class GuiOSM extends GuiMapBase {
 					double minLon = Double.parseDouble(lonField.getText());
 					double maxLat = Double.parseDouble(lat1Field.getText());
 					double maxLon = Double.parseDouble(lon1Field.getText());
+
+					String response = API.call(new URL(API.getApiLink(minLat, minLon, maxLat, maxLon, true)));
+					System.out.println(response);
+					JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 					
-					String link = "https://overpass-api.de/api/interpreter?data="
-								+ URLEncoder.encode(OSMApiCommand.getApiLink(minLat, minLon, maxLat, maxLon).substring(45), "utf-8");
-					URL url = new URL(link);
-					System.out.println(url);
-					
-					URLConnection con = url.openConnection();
-					con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/75.0.1");
-					con.setConnectTimeout(15000);
-					con.setReadTimeout(15000);
-					
-					String response = IOUtils.toString(con.getInputStream(), StandardCharsets.UTF_8);
-					
-					new JsonParser().parse(response); // Validate that it's real json
-					
-					apiData = new ApiDataHandler(response, Projection.BTE_00);
+					apiData = new ApiDataHandler(jsonResponse, Projection.BTE_00);
 					this.ways = new ArrayList<>(apiData.ways);
 					this.nodes = new ArrayList<>(apiData.nodes);
 					buttonList.get(0).enabled = true;
