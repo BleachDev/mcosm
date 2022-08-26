@@ -1,5 +1,5 @@
 # McOSM
-A Minecraft OSM Shell Generator fully compatible with CubicChunks, Terra121 and the Build The Earth map projection
+A Mod that imports OpenStreetMap data into Minecraft, fully compatible with CubicChunks, Terra121 and the Build The Earth map projection. 
 
 ![](https://i.imgur.com/rreILw9.png)
 ![](https://i.imgur.com/GvREQrZ.jpg)
@@ -36,7 +36,7 @@ There are several commands to load map data into minecraft, here are all of them
 * ```/osmfile [path]``` to open data from a file and open the build gui
 * ```/osmapi [lat1] [lon1] [lat2] [lon2]``` to copy a link of the api url to your clipboard to manually open it
 * ```/osm stop``` to stop all current tasks
-* ```/osmcoords <to/from> <x/lat> <z/lon>``` to convert Geo Coords to blocks
+* ```/osmcoords <to/from> <x/lat> <z/lon>``` to convert GPS coordinates to/from ingame coordinates
 
 ## Usage
 
@@ -46,15 +46,13 @@ Also turn off roads and building outlines for the best result!
 ```
 
 
-* Go on a map (like google maps), go to the top left and bottom right corners of the area part you want to download and copy the latitude and longitude coordinates from the urls, they should look like ```53.8375363,-9.351417``` where the first is latitude and the second is longitude.
+* Go on a map (like Google maps), then find the latitude and longitude of the northwest and southeast corners of the area you want to download ([How?](https://support.google.com/maps/answer/18539)), and save those coordinates for later.
 
 * Then run the ```/osm``` command which will open the builder gui
 
 * Select the features you want on the left *(The [Global/Local] toggle changes the building placement from on the terra121 map location to locally around the player)*
 
-* Then change the latitude/longitude coords to the area you want to fill (more than 10000-20000m² isn't recommended due to cubicchunks leaking insane memory and terra121 being slow at chunk loading)
-
-* if the map doesn't vaguely line up *(THE MAP DOESN'T ENTIRELY LINE UP! As long as it isn't on the other side of the earth it should be fine)*
+* Then paste the latitude/longitude you copied from earler into coordinate boxes. the map preview should now vaguely line up *(**It doesn't enterly line up!** As long as it isn't on the other side of the earth it should be fine)*
 
 * Then click the ```Download``` Button and wait for it to download, If it wasn't successful it should say an error in the output box
 
@@ -67,4 +65,4 @@ If you want to contribute:
 * Follow the instructions in the README-FORGE file
 * Once you are done making your edits, push the changes to your fork and make a pull request
 
-Or if you are too lazy to use git, you can message me your contribution on discord ```Bleach#0136```
+Or create a pull request if you encounter an issue or want to suggest something.
