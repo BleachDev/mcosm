@@ -1,14 +1,8 @@
 # McOSM
 A Mod that imports OpenStreetMap data into Minecraft, fully compatible with CubicChunks, Terra121 and the Build The Earth map projection. 
 
-![](https://i.imgur.com/rreILw9.png)
-![](https://i.imgur.com/GvREQrZ.jpg)
-
 ## Features
 
-This mod works in CubicChunks or in normal world, and in the Terra121 earth world, And can be used to build in earth scale ontop of the Terra121 building outlines or build around the player. To use it use the ```/osm``` command.
-
-Features:
 * Making building shells.
     * Making each house the right height based on its OSM data height.
     * Adding windows on buildings based on how many floors they have.
@@ -40,12 +34,6 @@ There are several commands to load map data into minecraft, here are all of them
 
 ## Usage
 
-```
-WHEN USING THE MOD IN A TERRA121 WORLD, TURN THE MAP DIRECTION TO UPRIGHT AND BTE PROJECTION!!
-Also turn off roads and building outlines for the best result!
-```
-
-
 * Go on a map (like Google maps), then find the latitude and longitude of the northwest and southeast corners of the area you want to download ([How?](https://support.google.com/maps/answer/18539)), and save those coordinates for later.
 
 * Then run the ```/osm``` command which will open the builder gui
@@ -58,6 +46,10 @@ Also turn off roads and building outlines for the best result!
 
 * If it successfully downloaded, you can click on the ```Start``` button to start building *(you don't have to be in the chunks its building in for it to build)*
 
+**Important:**  
+When using the mod in a Terra121 world, turn the map direction to upright and BTE projecttion!  
+Also turn off roads and building outlines for the best result!  
+
 ## Contributing
 
 If you want to contribute:
@@ -65,4 +57,4 @@ If you want to contribute:
 * Follow the instructions in the README-FORGE file
 * Once you are done making your edits, push the changes to your fork and make a pull request
 
-Or create a pull request if you encounter an issue or want to suggest something.
+Or create an issue if you encounter an issue or want to suggest something.
