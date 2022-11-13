@@ -1,6 +1,9 @@
 # McOSM
 A Mod that imports OpenStreetMap data into Minecraft, fully compatible with CubicChunks, Terra121 and the Build The Earth map projection. 
 
+![](https://i.imgur.com/H15BxA5.jpg)
+![](https://i.imgur.com/GvREQrZ.jpg)
+
 ## Features
 
 * Making building shells.
