@@ -50,7 +50,7 @@ public class OSMShellCommand extends CommandBase {
 			List<JsonObject> newWays = apiData.ways.stream().filter(j -> {
 				try {
 					JsonObject jbounds = j.get("bounds").getAsJsonObject();
-					//System.out.println(jbounds);
+					//McOSM.LOGGER.debug(jbounds);
 					return jbounds.get("minlat").getAsDouble() < latLon[0] && jbounds.get("minlon").getAsDouble() < latLon[1]
 							&& jbounds.get("maxlat").getAsDouble() > latLon[0] && jbounds.get("maxlon").getAsDouble() > latLon[1];
 				} catch (Exception e) {
@@ -67,7 +67,7 @@ public class OSMShellCommand extends CommandBase {
 		} catch (Exception e) {
 			sender.sendMessage(new TextComponentString("\u00a7cError: " + e.getClass().getSimpleName()));
 			sender.sendMessage(new TextComponentString(Arrays.toString(e.getStackTrace())));
-			e.printStackTrace();
+			McOSM.LOGGER.error(e);
 		}
 	}
 

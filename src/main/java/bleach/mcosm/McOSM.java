@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = McOSM.MODID, name = McOSM.NAME, version = McOSM.VERSION)
 public class McOSM {
@@ -25,6 +27,8 @@ public class McOSM {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
     public static final String VERSION = "0.4.2";
+
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
     
     public static OSMInstance osmInst = new OSMInstance();
     

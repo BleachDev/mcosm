@@ -46,7 +46,7 @@ public class OSMInstance {
     			if (structures.isEmpty()) {
     				Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("\u00a76Done!"));
     			} else {
-    				System.out.println("Done! Queue: " + structures.size());
+                    McOSM.LOGGER.info("Done! Queue: {}", structures.size());
     			}
     		}
     	}

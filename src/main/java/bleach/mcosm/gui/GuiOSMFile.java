@@ -21,7 +21,7 @@ public class GuiOSMFile extends GuiMapBase {
 	
 	public GuiOSMFile(ApiDataHandler apiData) {
 		super(apiData.minLat, apiData.maxLon, apiData.maxLat, apiData.maxLon);
-		System.out.println(apiData.minLat + " | " + apiData.maxLon + " | " + apiData.maxLat + " | " + apiData.maxLon);
+        McOSM.LOGGER.info("{} | {} | {} | {}", apiData.minLat, apiData.maxLon, apiData.maxLat, apiData.maxLon);
 		this.apiData = apiData;
 		this.ways = new ArrayList<>(apiData.ways);
 		this.nodes = new ArrayList<>(apiData.nodes);

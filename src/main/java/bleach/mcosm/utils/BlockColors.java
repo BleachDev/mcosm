@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import bleach.mcosm.McOSM;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.state.IBlockState;
@@ -46,7 +47,7 @@ public class BlockColors {
 					int avg = averageImage(img);
 					COLORS.put(state, avg);
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					McOSM.LOGGER.error(ex);
 				}
 			}
 		}
@@ -87,8 +88,8 @@ public class BlockColors {
 				closestLoc = e.getKey();
 			}
 		}
-		
-		System.out.println(closestLoc + " | " + diff);
+
+        McOSM.LOGGER.info("{} | {}", closestLoc, diff);
 		return closestLoc;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+import bleach.mcosm.McOSM;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -274,7 +275,7 @@ public class ApiDataHandler {
 			case BTE_PLAYER:
 				return GeoPos.fromPlayerBTE(lat, lon, lat0, lon0);
 			default:
-				System.err.println("Unknown Projection Found!");
+				McOSM.LOGGER.error("Unknown Projection Found!");
 				return BlockPos.ORIGIN;
 		}
 	}

@@ -120,7 +120,7 @@ public class GuiOSM extends GuiMapBase {
 					double maxLon = Double.parseDouble(lon1Field.getText());
 
 					String response = API.call(new URL(API.getApiLink(minLat, minLon, maxLat, maxLon, true)));
-					System.out.println(response);
+					McOSM.LOGGER.info(response);
 					JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 					
 					apiData = new ApiDataHandler(jsonResponse, Projection.BTE_00);
@@ -131,13 +131,13 @@ public class GuiOSM extends GuiMapBase {
 					outputText = "\u00a7aSuccess!\n\u00a7a(" + String.format("%,d", response.length()) + " Bytes)";
 				} catch (NumberFormatException e) {
 					outputText = "\u00a7cInvalid Lat/Lon!";
-					e.printStackTrace();
+					McOSM.LOGGER.error(e);
 				} catch (IOException e) {
 					outputText = "\u00a7cIO Exception!";
-					e.printStackTrace();
+					McOSM.LOGGER.error(e);
 				} catch (JsonParseException e) {
 					outputText = "\u00a7cInvalid Json\n\u00a7c(rate limit)";
-					e.printStackTrace();
+					McOSM.LOGGER.error(e);
 				}
 				
 				break;
