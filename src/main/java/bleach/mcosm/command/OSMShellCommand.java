@@ -40,7 +40,7 @@ public class OSMShellCommand extends CommandBase {
 			String response = API.getBuildingData(latLon[0], latLon[1]);
 			JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 			
-			sender.sendMessage(new TextComponentString("\u00a7aDownloaded (" + response.length() + " Bytes)"));
+			sender.sendMessage(new TextComponentString("§aDownloaded (" + response.length() + " Bytes)"));
 			
 			ApiDataHandler apiData = new ApiDataHandler(jsonResponse, Projection.BTE_00);
 			
@@ -51,18 +51,18 @@ public class OSMShellCommand extends CommandBase {
 					return jbounds.get("minlat").getAsDouble() < latLon[0] && jbounds.get("minlon").getAsDouble() < latLon[1]
 							&& jbounds.get("maxlat").getAsDouble() > latLon[0] && jbounds.get("maxlon").getAsDouble() > latLon[1];
 				} catch (Exception e) {
-					sender.sendMessage(new TextComponentString("\u00a7cError Getting Building Pos"));
+					sender.sendMessage(new TextComponentString("§cError Getting Building Pos"));
 					return false;
 				}
 			}).collect(Collectors.toList());
 			
 			apiData.ways = newWays;
 			
-			sender.sendMessage(new TextComponentString("\u00a7aLoaded " + apiData.ways.size() + " Building(s)"));
+			sender.sendMessage(new TextComponentString("§aLoaded " + apiData.ways.size() + " Building(s)"));
 			apiData.addToInstance(McOSM.osmInst);
 			
 		} catch (Exception e) {
-			sender.sendMessage(new TextComponentString("\u00a7cError: " + e.getClass().getSimpleName()));
+			sender.sendMessage(new TextComponentString("§cError: " + e.getClass().getSimpleName()));
 			sender.sendMessage(new TextComponentString(Arrays.toString(e.getStackTrace())));
 			McOSM.LOGGER.error(e);
 		}

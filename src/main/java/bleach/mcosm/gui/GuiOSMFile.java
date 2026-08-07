@@ -33,9 +33,9 @@ public class GuiOSMFile extends GuiMapBase {
 		addButton(new GuiButton(0, mapX + mapLen - 75, mapY + mapHei + 5, 75, 20, "Start"));
 		addButton(new GuiButton(1, mapX, mapY + mapHei + 5, 75, 20, "Cancel"));
 		
-		addButton(new GuiButton(2, mapX - 65, mapY, 60, 20, "\u00a7aBuildings"));
-		addButton(new GuiButton(3, mapX - 65, mapY + 22, 60, 20, "\u00a7aRoads"));
-		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "\u00a7aTrees"));
+		addButton(new GuiButton(2, mapX - 65, mapY, 60, 20, "§aBuildings"));
+		addButton(new GuiButton(3, mapX - 65, mapY + 22, 60, 20, "§aRoads"));
+		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "§aTrees"));
 		
 		addButton(new GuiButton(5, mapX - 65, mapY + 72, 60, 20, "Global"));
     }
@@ -60,7 +60,7 @@ public class GuiOSMFile extends GuiMapBase {
 				break;
 			case 2: case 3: case 4:
 				String s = button.displayString;
-				button.displayString = (s.startsWith("\u00a7c") ? "\u00a7a" : "\u00a7c") + s.substring(2);
+				button.displayString = (s.startsWith("§c") ? "§a" : "§c") + s.substring(2);
 				updateLists();
 				break;
 			case 5:
@@ -71,13 +71,13 @@ public class GuiOSMFile extends GuiMapBase {
 	protected void updateLists() {
 		if (apiData != null) {
 			ways = apiData.ways.stream().filter(j -> 
-					(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("building"))
-					|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("highway"))
-					|| (buttonList.get(4).displayString.startsWith("\u00a7a")
+					(buttonList.get(2).displayString.startsWith("§a") && j.get("tags").getAsJsonObject().has("building"))
+					|| (buttonList.get(3).displayString.startsWith("§a") && j.get("tags").getAsJsonObject().has("highway"))
+					|| (buttonList.get(4).displayString.startsWith("§a")
 							&& (j.get("tags").getAsJsonObject().has("natural") || j.get("tags").getAsJsonObject().has("barrier"))))
 					.collect(Collectors.toList());
 
-			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("\u00a7a")).collect(Collectors.toList());
+			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("§a")).collect(Collectors.toList());
 		}
 	}
 }
