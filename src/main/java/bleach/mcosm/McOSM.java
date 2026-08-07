@@ -3,6 +3,7 @@ package bleach.mcosm;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import bleach.mcosm.api.API;
 import bleach.mcosm.command.OSMApiCommand;
 import bleach.mcosm.command.OSMCommand;
 import bleach.mcosm.command.OSMCoordsCommand;
@@ -35,7 +36,7 @@ public class McOSM {
     public static Queue<GuiScreen> guiQueue = new LinkedList<>();
     
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) throws Exception {
     	MinecraftForge.EVENT_BUS.register(this);
     	
     	ClientCommandHandler.instance.registerCommand(new OSMCommand());
@@ -43,6 +44,8 @@ public class McOSM {
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMShellCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMCoordsCommand());
+
+        API.init();
     }
     
     @SubscribeEvent

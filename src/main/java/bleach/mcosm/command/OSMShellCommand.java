@@ -37,10 +37,7 @@ public class OSMShellCommand extends CommandBase {
 		double[] latLon = GeoPos.toLatLonBTE(sender.getPosition());
 		
 		try {
-			String coords = (latLon[0] - 0.001) + "," + (latLon[1] - 0.001) + "," + (latLon[0] + 0.001) + "," + (latLon[1] + 0.001);
-			String link = API.API_LINK + URLEncoder.encode("[out:json];(way[building](" + coords + "););out geom;", "utf-8");
-	
-			String response = API.call(new URL(link));
+			String response = API.getBuildingData(latLon[0], latLon[1]);
 			JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 			
 			sender.sendMessage(new TextComponentString("\u00a7aDownloaded (" + response.length() + " Bytes)"));

@@ -45,7 +45,7 @@ public class OSMApiCommand extends CommandBase {
 		if (NumberUtils.isCreatable(args[3])) maxLon = NumberUtils.createNumber(args[3]).doubleValue();
 		else throw new CommandException("Invalid Coordinate [Arg 4]", new Object[0]);
 
-		String link = API.getApiLink(minLat, minLon, maxLat, maxLon, false);
+		String link = API.getApiQuery(minLat, minLon, maxLat, maxLon);
 		
 		GuiScreen.setClipboardString(link);
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new TextComponentString("Added api link to clipboard"));

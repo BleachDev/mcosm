@@ -1,7 +1,6 @@
 package bleach.mcosm.gui;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,7 +88,7 @@ public class GuiOSM extends GuiMapBase {
 		lon1Field.drawTextBox();
 	}
 	
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 0:
 				if (apiData == null) break;
@@ -119,8 +118,9 @@ public class GuiOSM extends GuiMapBase {
 					double maxLat = Double.parseDouble(lat1Field.getText());
 					double maxLon = Double.parseDouble(lon1Field.getText());
 
-					String response = API.call(new URL(API.getApiLink(minLat, minLon, maxLat, maxLon, true)));
-					McOSM.LOGGER.info(response);
+					Minecraft.getMinecraft().player.sendChatMessage("Please wait... This may take a moment...");
+					String response = API.getOsmData(minLat, minLon, maxLat, maxLon);
+					McOSM.LOGGER.info("Reponse length: {} bytes", response.length());
 					JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 					
 					apiData = new ApiDataHandler(jsonResponse, Projection.BTE_00);
@@ -132,11 +132,11 @@ public class GuiOSM extends GuiMapBase {
 				} catch (NumberFormatException e) {
 					outputText = "\u00a7cInvalid Lat/Lon!";
 					McOSM.LOGGER.error(e);
-				} catch (IOException e) {
-					outputText = "\u00a7cIO Exception!";
-					McOSM.LOGGER.error(e);
 				} catch (JsonParseException e) {
-					outputText = "\u00a7cInvalid Json\n\u00a7c(rate limit)";
+					outputText = "§cInvalid Json\n§c(rate limit)";
+					McOSM.LOGGER.error(e);
+				} catch (RuntimeException e) {
+					outputText = String.format("§c%s!", e.getMessage());
 					McOSM.LOGGER.error(e);
 				}
 				
