@@ -89,7 +89,7 @@ public class BlockColors {
 			}
 		}
 
-        McOSM.LOGGER.info("{} | {}", closestLoc, diff);
+        //McOSM.LOGGER.debug("{} | {}", closestLoc, diff);
 		return closestLoc;
 	}
 }

@@ -141,12 +141,23 @@ public class ApiDataHandler {
 					JsonElement jmaterial = jtags.get("building:material");
 					
 					if (jfloors != null) {
-						height = (int) Math.round(jfloors.getAsInt() * 3.5);
-						floors = jfloors.getAsInt();
+						try {
+							height = (int) Math.round(jfloors.getAsInt() * 3.5);
+							floors = jfloors.getAsInt();
+						} catch (Exception e) {
+							McOSM.LOGGER.warn("Failed to parse \"building:levels\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
+							McOSM.LOGGER.warn(j);
+							height = 7;
+						}
 					}
 					
 					if (jheight != null) {
-						height = (int) jheight.getAsDouble();
+						try {
+							height = (int) jheight.getAsDouble();
+						} catch (Exception e) {
+							McOSM.LOGGER.warn("Failed to parse \"height\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
+							McOSM.LOGGER.warn(j);
+						}
 					}
 					
 					if (jcolor != null) {
@@ -159,7 +170,7 @@ public class ApiDataHandler {
 								Field f = Color.class.getField(color.toUpperCase());
 
 								blockType = BlockColors.getClosestBlock(((Color) f.get(null)).getRGB());
-							} catch (Exception e) {
+							} catch (Exception ignored) {
 							}
 						}
 					}
