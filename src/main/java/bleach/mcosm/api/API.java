@@ -95,9 +95,6 @@ public class API {
 			} catch (IOException e) {
 				McOSM.LOGGER.error("Host {}: {}", endpoint, e);
 				McOSM.LOGGER.error("Full URL: {}", url);
-				if (e instanceof SSLHandshakeException) {
-					McOSM.LOGGER.error("Try updating/reinstalling your Java to fix this issue!");
-				}
 			}
 		}
 
