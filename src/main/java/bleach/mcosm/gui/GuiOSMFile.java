@@ -20,8 +20,8 @@ public class GuiOSMFile extends GuiMapBase {
 	protected List<JsonObject> nodes;
 	
 	public GuiOSMFile(ApiDataHandler apiData) {
-		super(apiData.minLat, apiData.maxLon, apiData.maxLat, apiData.maxLon);
-        McOSM.LOGGER.info("{} | {} | {} | {}", apiData.minLat, apiData.maxLon, apiData.maxLat, apiData.maxLon);
+		super(apiData.minLat, apiData.minLon, apiData.maxLat, apiData.maxLon);
+        McOSM.LOGGER.info("{} | {} | {} | {}", apiData.minLat, apiData.minLon, apiData.maxLat, apiData.maxLon);
 		this.apiData = apiData;
 		this.ways = new ArrayList<>(apiData.ways);
 		this.nodes = new ArrayList<>(apiData.nodes);
