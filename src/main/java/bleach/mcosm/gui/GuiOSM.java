@@ -117,8 +117,7 @@ public class GuiOSM extends GuiMapBase {
 					double minLon = Double.parseDouble(lonField.getText());
 					double maxLat = Double.parseDouble(lat1Field.getText());
 					double maxLon = Double.parseDouble(lon1Field.getText());
-
-					Minecraft.getMinecraft().player.sendChatMessage("Please wait... This may take a moment...");
+					
 					String response = API.getOsmData(minLat, minLon, maxLat, maxLon);
 					McOSM.LOGGER.info("Reponse length: {} bytes", response.length());
 					JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();

@@ -142,18 +142,24 @@ public class ApiDataHandler {
 					
 					if (jfloors != null) {
 						try {
-							height = (int) Math.round(jfloors.getAsInt() * 3.5);
-							floors = jfloors.getAsInt();
+							// https://wiki.openstreetmap.org/wiki/Key:building:levels?uselang=en#Values
+							// Fractional values (e.g. *.5) are not valid but do appear occasionally.
+							// Rounding down is probably the best approach here.
+							floors = (int) Math.floor(jfloors.getAsDouble());
+							height = (int) Math.round(floors * 3.5);
 						} catch (Exception e) {
 							McOSM.LOGGER.warn("Failed to parse \"building:levels\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
 							McOSM.LOGGER.warn(j);
-							height = 7;
+							floors = 0;
 						}
 					}
 					
 					if (jheight != null) {
 						try {
-							height = (int) jheight.getAsDouble();
+							String heightString = jheight.getAsString();
+							if (heightString.endsWith("m")) heightString = heightString.substring(0, heightString.length() - 1).trim();
+							
+							height = (int) Math.round(Double.parseDouble(heightString));
 						} catch (Exception e) {
 							McOSM.LOGGER.warn("Failed to parse \"height\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
 							McOSM.LOGGER.warn(j);
