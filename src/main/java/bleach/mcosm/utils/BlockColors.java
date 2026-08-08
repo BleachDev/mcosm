@@ -21,8 +21,7 @@ public class BlockColors {
 	private static void initBlockColors() {
 		COLORS = new HashMap<>();
 		
-		for (Object obj : Block.REGISTRY) {
-			Block block = (Block) obj;
+		for (Block block : Block.REGISTRY) {
 			IBlockState state = block.getDefaultState();
 			
 			if (!state.isFullBlock() || state.isTranslucent() || !(block instanceof BlockColored)) continue;
@@ -55,17 +54,17 @@ public class BlockColors {
 	
 	private static int averageImage(BufferedImage img) {
 		long sumr = 0, sumg = 0, sumb = 0;
-	    for (int x = 0; x < img.getWidth(); x++) {
-	        for (int y = 0; y < img.getHeight(); y++) {
-	            Color pixel = new Color(img.getRGB(x, y));
-	            sumr += pixel.getRed();
-	            sumg += pixel.getGreen();
-	            sumb += pixel.getBlue();
-	        }
-	    }
-	    
-	    int pixels = img.getWidth() * img.getHeight();
-	    return (int) (((int) ((sumr / pixels) << 16) | (sumg / pixels) << 8) | (sumb / pixels));
+		for (int x = 0; x < img.getWidth(); x++) {
+			for (int y = 0; y < img.getHeight(); y++) {
+				Color pixel = new Color(img.getRGB(x, y));
+				sumr += pixel.getRed();
+				sumg += pixel.getGreen();
+				sumb += pixel.getBlue();
+			}
+		}
+		
+		int pixels = img.getWidth() * img.getHeight();
+		return (int) (((int) ((sumr / pixels) << 16) | (sumg / pixels) << 8) | (sumb / pixels));
 	}
 	
 	public static IBlockState getClosestBlock(int color) {
@@ -88,8 +87,8 @@ public class BlockColors {
 				closestLoc = e.getKey();
 			}
 		}
-
-        //McOSM.LOGGER.debug("{} | {}", closestLoc, diff);
+		
+		//McOSM.LOGGER.debug("{} | {}", closestLoc, diff);
 		return closestLoc;
 	}
 }

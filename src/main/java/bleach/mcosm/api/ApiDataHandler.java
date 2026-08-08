@@ -29,8 +29,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 
 public class ApiDataHandler {
-
-	private JsonObject data;
+	
 	public Projection proj;
 	
 	public List<JsonObject> ways = new ArrayList<>();
@@ -42,12 +41,11 @@ public class ApiDataHandler {
 	public double maxLon = Integer.MIN_VALUE;
 	
 	public ApiDataHandler(JsonObject json, Projection proj) {
-		this.data = json;
 		this.proj = proj;
 		
 		PriorityQueue<OrderedData> tempWays = new PriorityQueue<>();
 
-		for (JsonElement j: data.get("elements").getAsJsonArray()) {
+		for (JsonElement j: json.get("elements").getAsJsonArray()) {
 			JsonObject jobj = j.getAsJsonObject();
 			
 			try {
@@ -198,7 +196,7 @@ public class ApiDataHandler {
 				
 				if (jtags.has("highway")) {
 					JsonElement jroad = jtags.get("highway");
-					nodes = nodes.stream().map(b -> b.down()).collect(Collectors.toList());
+					nodes = nodes.stream().map(BlockPos::down).collect(Collectors.toList());
 					
 					switch (jroad.getAsString()) {
 						case "motorway":

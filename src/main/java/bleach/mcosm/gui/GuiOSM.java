@@ -61,7 +61,7 @@ public class GuiOSM extends GuiMapBase {
 		lon1Field.setText(lon1 + "");
 		
 		buttonList.get(0).enabled = false;
-    }
+	}
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -141,7 +141,7 @@ public class GuiOSM extends GuiMapBase {
 				
 				break;
 		}
-    }
+	}
 	
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		super.keyTyped(typedChar, keyCode);
@@ -155,7 +155,7 @@ public class GuiOSM extends GuiMapBase {
 		if (lonField.isFocused() && NumberUtils.isCreatable(lonField.getText())) lon = NumberUtils.createNumber(lonField.getText()).doubleValue();
 		if (lat1Field.isFocused() && NumberUtils.isCreatable(lat1Field.getText())) lat1 = NumberUtils.createNumber(lat1Field.getText()).doubleValue();
 		if (lon1Field.isFocused() && NumberUtils.isCreatable(lon1Field.getText())) lon1 = NumberUtils.createNumber(lon1Field.getText()).doubleValue();
-    }
+	}
 	
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		super.mouseClicked(mouseX, mouseY, mouseButton);

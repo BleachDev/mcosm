@@ -1,6 +1,5 @@
 package bleach.mcosm.gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public class GuiOSMFile extends GuiMapBase {
 	
 	public GuiOSMFile(ApiDataHandler apiData) {
 		super(apiData.minLat, apiData.minLon, apiData.maxLat, apiData.maxLon);
-        McOSM.LOGGER.info("{} | {} | {} | {}", apiData.minLat, apiData.minLon, apiData.maxLat, apiData.maxLon);
+		McOSM.LOGGER.info("{} | {} | {} | {}", apiData.minLat, apiData.minLon, apiData.maxLat, apiData.maxLon);
 		this.apiData = apiData;
 		this.ways = new ArrayList<>(apiData.ways);
 		this.nodes = new ArrayList<>(apiData.nodes);
@@ -38,14 +37,14 @@ public class GuiOSMFile extends GuiMapBase {
 		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "§aTrees"));
 		
 		addButton(new GuiButton(5, mapX - 65, mapY + 72, 60, 20, "Global"));
-    }
+	}
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		drawString(fontRenderer, "Structures: " + (ways.size() + nodes.size()), mapX + 2, mapY - 10, 0x90a0a0);
 	}
 	
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 0:
 				updateLists();
@@ -66,7 +65,7 @@ public class GuiOSMFile extends GuiMapBase {
 			case 5:
 				button.displayString = button.displayString.equals("Global") ? "Local" : "Global";
 		}
-    }
+	}
 	
 	protected void updateLists() {
 		if (apiData != null) {
