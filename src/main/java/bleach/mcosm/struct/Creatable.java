@@ -21,15 +21,15 @@ public abstract class Creatable {
 			
 			Operation op = operations.get(0);
 			progress = String.format("[%d/%d] %s: %s%% %s",
-					1, c + 1, op.getClass().getSimpleName().replace("Operation", ""), (Math.round(op.getProgress() * 10000) / 100d),
-					(op.isSleeping() ? "\u00a7c(" + op.getSleepReason() + ")" : ""));
+					1, c + 1, op.getFormattedName(), op.getProgressFormatted(),
+					(op.isSleeping() ? "§c(" + op.getSleepReason() + ")" : ""));
 		} else {
 			int cur = operations.size() - 1;
 			Operation op = operations.get(cur);
 			
 			progress = String.format("[%d/%d] %s: %s%% %s",
-					cur + 1, c + 1, op.getClass().getSimpleName().replace("Operation", ""), (Math.round(op.getProgress() * 10000) / 100d),
-					(op.isSleeping() ? "\u00a7c(" + op.getSleepReason() + ")" : ""));
+					cur + 1, c + 1, op.getFormattedName(), op.getProgressFormatted(),
+					(op.isSleeping() ? "§c(" + op.getSleepReason() + ")" : ""));
 			
 			if (op.tick()) {
 				if (cur == c) {

@@ -35,14 +35,14 @@ public class OSMCoordsCommand extends CommandBase {
 		
 		if (args[0].equalsIgnoreCase("from")) {
 			double[] d = GeoPos.toLatLonBTE(new BlockPos(NumberUtils.createNumber(args[1]).doubleValue(), 0, NumberUtils.createNumber(args[2]).doubleValue()));
-			ITextComponent text = new TextComponentString("Position to Geo Pos: \u00a7a" + d[0] + ", " + d[1]);
+			ITextComponent text = new TextComponentString("Position to Geo Pos: §a" + d[0] + ", " + d[1]);
 			
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
 					text.setStyle(text.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, d[0] + " " + d[1]))
 							.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Show Coords")))));
 		} else if (args[0].equalsIgnoreCase("to")) {
 			BlockPos bp = GeoPos.from00BTE(NumberUtils.createNumber(args[1]).doubleValue(), NumberUtils.createNumber(args[2]).doubleValue(), 0);
-			ITextComponent text = new TextComponentString("Geo Pos to Position: \u00a7a" + bp.getX() + ", " + bp.getZ());
+			ITextComponent text = new TextComponentString("Geo Pos to Position: §a" + bp.getX() + ", " + bp.getZ());
 			
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
 					text.setStyle(text.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, bp.getX() + " " + bp.getZ()))

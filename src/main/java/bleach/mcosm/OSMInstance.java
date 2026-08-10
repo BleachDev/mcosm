@@ -29,7 +29,7 @@ public class OSMInstance {
     		tick++;
     		
     		if (tick > 3600) {
-    			Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("\u00a76Catching Up.."));
+    			Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("§6Catching Up.."));
     			
     			if (tick > 3900) tick = 0;
     			
@@ -38,15 +38,15 @@ public class OSMInstance {
     		
     		Creatable c = structures.get(0);
     		if (!c.progress.isEmpty()) Minecraft.getMinecraft().ingameGUI.addChatMessage(
-    				ChatType.GAME_INFO, new TextComponentString("\u00a75" + structures.size() + " Queue | \u00a76" + c.progress));
+    				ChatType.GAME_INFO, new TextComponentString("§5" + structures.size() + " Queue | §6" + c.progress));
     		
     		if (c.tick()) {
     			structures.remove(c);
     			
     			if (structures.isEmpty()) {
-    				Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("\u00a76Done!"));
+    				Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatType.GAME_INFO, new TextComponentString("§6Done!"));
     			} else {
-    				System.out.println("Done! Queue: " + structures.size());
+                    McOSM.LOGGER.info("Done! Queue: {}", structures.size());
     			}
     		}
     	}

@@ -39,10 +39,10 @@ public class OSMFileCommand extends CommandBase {
 			ApiDataHandler apiHandler = new ApiDataHandler(json, ApiDataHandler.Projection.BTE_00);
 			McOSM.guiQueue.add(new GuiOSMFile(apiHandler));
 		} catch (IOException e) {
-			e.printStackTrace();
+			McOSM.LOGGER.error(e);
 			throw new CommandException("Invalid File Path, Path Should Be: C:\\example\\folder\\interpreter.json", new Object[0]);
 		} catch (JsonParseException e) {
-			e.printStackTrace();
+			McOSM.LOGGER.error(e);
 			throw new CommandException("Invalid File Contents?", new Object[0]);
 		}
 	}

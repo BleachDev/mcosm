@@ -3,6 +3,7 @@ package bleach.mcosm;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import bleach.mcosm.api.API;
 import bleach.mcosm.command.OSMApiCommand;
 import bleach.mcosm.command.OSMCommand;
 import bleach.mcosm.command.OSMCoordsCommand;
@@ -18,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = McOSM.MODID, name = McOSM.NAME, version = McOSM.VERSION)
 public class McOSM {
@@ -25,13 +28,15 @@ public class McOSM {
     public static final String MODID = "mcosm";
     public static final String NAME = "McOSM";
     public static final String VERSION = "0.4.2";
+
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
     
     public static OSMInstance osmInst = new OSMInstance();
     
     public static Queue<GuiScreen> guiQueue = new LinkedList<>();
     
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) throws Exception {
     	MinecraftForge.EVENT_BUS.register(this);
     	
     	ClientCommandHandler.instance.registerCommand(new OSMCommand());
@@ -39,6 +44,8 @@ public class McOSM {
     	ClientCommandHandler.instance.registerCommand(new OSMApiCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMShellCommand());
     	ClientCommandHandler.instance.registerCommand(new OSMCoordsCommand());
+
+        API.init();
     }
     
     @SubscribeEvent

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import bleach.mcosm.McOSM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -18,7 +19,7 @@ public class GuiMapBase extends GuiScreen {
 		try {
 			mapTexture = new DynamicTexture(ImageIO.read(GuiMapBase.class.getClassLoader().getResourceAsStream("assets/bleach/res/map.png")));
 			mapResource = Minecraft.getMinecraft().getTextureManager().getDynamicTextureLocation("mcosm-map", mapTexture);
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) { McOSM.LOGGER.error(e); }
 	}
 
 	protected double lat = 0, lon = 0, lat1 = 0, lon1 = 0;

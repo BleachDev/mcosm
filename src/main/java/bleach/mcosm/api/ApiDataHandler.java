@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+import bleach.mcosm.McOSM;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -28,8 +29,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 
 public class ApiDataHandler {
-
-	private JsonObject data;
+	
 	public Projection proj;
 	
 	public List<JsonObject> ways = new ArrayList<>();
@@ -41,12 +41,11 @@ public class ApiDataHandler {
 	public double maxLon = Integer.MIN_VALUE;
 	
 	public ApiDataHandler(JsonObject json, Projection proj) {
-		this.data = json;
 		this.proj = proj;
 		
 		PriorityQueue<OrderedData> tempWays = new PriorityQueue<>();
 
-		for (JsonElement j: data.get("elements").getAsJsonArray()) {
+		for (JsonElement j: json.get("elements").getAsJsonArray()) {
 			JsonObject jobj = j.getAsJsonObject();
 			
 			try {
@@ -140,12 +139,29 @@ public class ApiDataHandler {
 					JsonElement jmaterial = jtags.get("building:material");
 					
 					if (jfloors != null) {
-						height = (int) Math.round(jfloors.getAsInt() * 3.5);
-						floors = jfloors.getAsInt();
+						try {
+							// https://wiki.openstreetmap.org/wiki/Key:building:levels?uselang=en#Values
+							// Fractional values (e.g. *.5) are not valid but do appear occasionally.
+							// Rounding down is probably the best approach here.
+							floors = (int) Math.floor(jfloors.getAsDouble());
+							height = (int) Math.round(floors * 3.5);
+						} catch (Exception e) {
+							McOSM.LOGGER.warn("Failed to parse \"building:levels\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
+							McOSM.LOGGER.warn(j);
+							floors = 0;
+						}
 					}
 					
 					if (jheight != null) {
-						height = (int) jheight.getAsDouble();
+						try {
+							String heightString = jheight.getAsString();
+							if (heightString.endsWith("m")) heightString = heightString.substring(0, heightString.length() - 1).trim();
+							
+							height = (int) Math.round(Double.parseDouble(heightString));
+						} catch (Exception e) {
+							McOSM.LOGGER.warn("Failed to parse \"height\" value - {}: {}", e.getClass().getSimpleName(), e.getMessage());
+							McOSM.LOGGER.warn(j);
+						}
 					}
 					
 					if (jcolor != null) {
@@ -158,7 +174,7 @@ public class ApiDataHandler {
 								Field f = Color.class.getField(color.toUpperCase());
 
 								blockType = BlockColors.getClosestBlock(((Color) f.get(null)).getRGB());
-							} catch (Exception e) {
+							} catch (Exception ignored) {
 							}
 						}
 					}
@@ -180,7 +196,7 @@ public class ApiDataHandler {
 				
 				if (jtags.has("highway")) {
 					JsonElement jroad = jtags.get("highway");
-					nodes = nodes.stream().map(b -> b.down()).collect(Collectors.toList());
+					nodes = nodes.stream().map(BlockPos::down).collect(Collectors.toList());
 					
 					switch (jroad.getAsString()) {
 						case "motorway":
@@ -274,7 +290,7 @@ public class ApiDataHandler {
 			case BTE_PLAYER:
 				return GeoPos.fromPlayerBTE(lat, lon, lat0, lon0);
 			default:
-				System.err.println("Unknown Projection Found!");
+				McOSM.LOGGER.error("Unknown Projection Found!");
 				return BlockPos.ORIGIN;
 		}
 	}

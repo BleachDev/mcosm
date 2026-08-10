@@ -1,5 +1,7 @@
 package bleach.mcosm.utils.projection;
 
+import bleach.mcosm.McOSM;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -42,7 +44,7 @@ public class ConformalEstProj extends AiroceanProj {
             sc.close();
             is.close();
         }catch (IOException e) {
-            System.err.println("Can't load conformal: "+e);
+            McOSM.LOGGER.error("Can't load conformal: {}", String.valueOf(e));
         }
 
         inverse = new InvertableVectorField(xs, ys);
@@ -85,7 +87,7 @@ public class ConformalEstProj extends AiroceanProj {
 
     protected double[] inverseTriangleTransform(double x, double y) {
 
-        //System.out.println(x+" "+y);
+        //McOSM.LOGGER.debug("{} {}", x, y);
 
         x /= ARC;
         y /= ARC;
@@ -101,7 +103,7 @@ public class ConformalEstProj extends AiroceanProj {
         c[0] = Math.cos(-theta * TO_RADIANS) * c[0] + Math.sin(-theta * TO_RADIANS) * c[1];
         c[1] = Math.cos(-theta * TO_RADIANS) * c[1] - Math.sin(-theta * TO_RADIANS) * x;*/
 
-        //System.out.println(c[0]+" "+c[1]);
+        //McOSM.LOGGER.debug("{} {}", c[0], c[1]);
 
         return super.inverseTriangleTransform(c[0],c[1]);
     }

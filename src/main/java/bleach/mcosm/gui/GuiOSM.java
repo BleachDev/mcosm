@@ -1,7 +1,6 @@
 package bleach.mcosm.gui;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,9 +42,9 @@ public class GuiOSM extends GuiMapBase {
 		addButton(new GuiButton(0, mapX + mapLen - 75, mapY + mapHei + 5, 75, 20, "Start"));
 		addButton(new GuiButton(1, mapX, mapY + mapHei + 5, 75, 20, "Cancel"));
 		
-		addButton(new GuiButton(2, mapX - 65, mapY, 60, 20, "\u00a7aBuildings"));
-		addButton(new GuiButton(3, mapX - 65, mapY + 22, 60, 20, "\u00a7aRoads"));
-		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "\u00a7aTrees"));
+		addButton(new GuiButton(2, mapX - 65, mapY, 60, 20, "§aBuildings"));
+		addButton(new GuiButton(3, mapX - 65, mapY + 22, 60, 20, "§aRoads"));
+		addButton(new GuiButton(4, mapX - 65, mapY + 44, 60, 20, "§aTrees"));
 		
 		addButton(new GuiButton(5, mapX - 65, mapY + 72, 60, 20, "Global"));
 		
@@ -62,7 +61,7 @@ public class GuiOSM extends GuiMapBase {
 		lon1Field.setText(lon1 + "");
 		
 		buttonList.get(0).enabled = false;
-    }
+	}
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -89,7 +88,7 @@ public class GuiOSM extends GuiMapBase {
 		lon1Field.drawTextBox();
 	}
 	
-	protected void actionPerformed(GuiButton button) throws IOException {
+	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 0:
 				if (apiData == null) break;
@@ -106,7 +105,7 @@ public class GuiOSM extends GuiMapBase {
 				break;
 			case 2: case 3: case 4:
 				String s = button.displayString;
-				button.displayString = (s.startsWith("\u00a7c") ? "\u00a7a" : "\u00a7c") + s.substring(2);
+				button.displayString = (s.startsWith("§c") ? "§a" : "§c") + s.substring(2);
 				updateLists();
 				break;
 			case 5:
@@ -118,9 +117,9 @@ public class GuiOSM extends GuiMapBase {
 					double minLon = Double.parseDouble(lonField.getText());
 					double maxLat = Double.parseDouble(lat1Field.getText());
 					double maxLon = Double.parseDouble(lon1Field.getText());
-
-					String response = API.call(new URL(API.getApiLink(minLat, minLon, maxLat, maxLon, true)));
-					System.out.println(response);
+					
+					String response = API.getOsmData(minLat, minLon, maxLat, maxLon);
+					McOSM.LOGGER.info("Reponse length: {} bytes", response.length());
 					JsonObject jsonResponse = new JsonParser().parse(response).getAsJsonObject();
 					
 					apiData = new ApiDataHandler(jsonResponse, Projection.BTE_00);
@@ -128,21 +127,21 @@ public class GuiOSM extends GuiMapBase {
 					this.nodes = new ArrayList<>(apiData.nodes);
 					buttonList.get(0).enabled = true;
 					buttonList.get(6).enabled = false;
-					outputText = "\u00a7aSuccess!\n\u00a7a(" + String.format("%,d", response.length()) + " Bytes)";
+					outputText = "§aSuccess!\n§a(" + String.format("%,d", response.length()) + " Bytes)";
 				} catch (NumberFormatException e) {
-					outputText = "\u00a7cInvalid Lat/Lon!";
-					e.printStackTrace();
-				} catch (IOException e) {
-					outputText = "\u00a7cIO Exception!";
-					e.printStackTrace();
+					outputText = "§cInvalid Lat/Lon!";
+					McOSM.LOGGER.error(e);
 				} catch (JsonParseException e) {
-					outputText = "\u00a7cInvalid Json\n\u00a7c(rate limit)";
-					e.printStackTrace();
+					outputText = "§cInvalid Json\n§c(rate limit)";
+					McOSM.LOGGER.error(e);
+				} catch (RuntimeException e) {
+					outputText = String.format("§c%s!", e.getMessage());
+					McOSM.LOGGER.error(e);
 				}
 				
 				break;
 		}
-    }
+	}
 	
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		super.keyTyped(typedChar, keyCode);
@@ -156,7 +155,7 @@ public class GuiOSM extends GuiMapBase {
 		if (lonField.isFocused() && NumberUtils.isCreatable(lonField.getText())) lon = NumberUtils.createNumber(lonField.getText()).doubleValue();
 		if (lat1Field.isFocused() && NumberUtils.isCreatable(lat1Field.getText())) lat1 = NumberUtils.createNumber(lat1Field.getText()).doubleValue();
 		if (lon1Field.isFocused() && NumberUtils.isCreatable(lon1Field.getText())) lon1 = NumberUtils.createNumber(lon1Field.getText()).doubleValue();
-    }
+	}
 	
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -169,14 +168,14 @@ public class GuiOSM extends GuiMapBase {
 	
 	protected void updateLists() {
 		if (apiData != null) {
-			ways = apiData.ways.stream().filter(j -> 
-					(buttonList.get(2).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("building"))
-					|| (buttonList.get(3).displayString.startsWith("\u00a7a") && j.get("tags").getAsJsonObject().has("highway"))
-					|| (buttonList.get(4).displayString.startsWith("\u00a7a")
+			ways = apiData.ways.stream().filter(j ->
+					(buttonList.get(2).displayString.startsWith("§a") && j.get("tags").getAsJsonObject().has("building"))
+					|| (buttonList.get(3).displayString.startsWith("§a") && j.get("tags").getAsJsonObject().has("highway"))
+					|| (buttonList.get(4).displayString.startsWith("§a")
 							&& (j.get("tags").getAsJsonObject().has("natural") || j.get("tags").getAsJsonObject().has("barrier"))))
 					.collect(Collectors.toList());
 
-			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("\u00a7a")).collect(Collectors.toList());
+			nodes = apiData.nodes.stream().filter(j -> buttonList.get(4).displayString.startsWith("§a")).collect(Collectors.toList());
 		}
 	}
 }

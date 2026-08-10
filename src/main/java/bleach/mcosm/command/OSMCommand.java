@@ -45,7 +45,7 @@ public class OSMCommand extends CommandBase {
 				McOSM.guiQueue.add(new GuiOSM(Double.parseDouble(args[0]), Double.parseDouble(args[1]),
 						Double.parseDouble(args[2]), Double.parseDouble(args[3])));
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
+				McOSM.LOGGER.error(e);
 				throw new CommandException("Invalid Coordinate [Arg ?]", new Object[0]);
 			}
 			

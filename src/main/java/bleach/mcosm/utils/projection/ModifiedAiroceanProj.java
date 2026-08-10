@@ -1,5 +1,7 @@
 package bleach.mcosm.utils.projection;
 
+import bleach.mcosm.McOSM;
+
 public class ModifiedAiroceanProj extends ConformalEstProj {
 
 	protected static double THETA = -150*TO_RADIANS;
@@ -34,7 +36,7 @@ public class ModifiedAiroceanProj extends ConformalEstProj {
 
     public double[] toGeo(double x, double y) {
     	x /= metersPerUnit(); y /= metersPerUnit();  // MODIFIED FROM ORIGINAL CODE!!! Auto scaled the coords given
-    	//System.out.println(x + " | " + y + " | " + metersPerUnit());
+        //McOSM.LOGGER.debug("{} | {} | {}", x, y, metersPerUnit());
     	
         boolean easia;
         if(y<0)easia = x>0;
